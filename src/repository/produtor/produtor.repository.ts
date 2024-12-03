@@ -20,7 +20,7 @@ export class ProdutorRepository {
         return produtor;
     }
 
-    async obterProdutorId(idProdutor: number): Promise<Produtor> {
+    async obterProdutorId(idProdutor: string): Promise<Produtor> {
         const produtor = await this._produtorRepository
             .createQueryBuilder('produtor')
             .select()
@@ -31,6 +31,22 @@ export class ProdutorRepository {
     }
 
     async criarProdutor(parametros: CriarProdutorDTO): Promise<Produtor> {
-        return await this._produtorRepository.create(parametros).save();
+        return await this._produtorRepository.create({
+            ...parametros,
+            ativo: true
+        }).save();
+    }
+
+    async deletarProdutorId(idProdutor: string): Promise<number> {
+        const produtor = await this._produtorRepository.update(
+            {
+                id: idProdutor
+            },
+            {
+                ativo: false,
+            }
+        );
+
+        return produtor.affected || 0;
     }
 }

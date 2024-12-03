@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProdutorService } from 'src/service/produtor.service';
 import { ObterProdutorResponse } from './response/obterProdutor.response';
@@ -74,5 +74,26 @@ export class ProdutorController {
   })
   async criarProdutor(@Body() parametros: CriarProdutorRequest): Promise<CriarProdutorResponse> {
     return await this._produtorService.criarProdutor(parametros);
+  }
+
+  @Delete(':idProdutor')
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Sucesso'
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_GATEWAY,
+    description: 'BAD_GATEWAY',
+    type: ErroPersonalizadoException,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'NOT_FOUND',
+    type: RegraDeNegocioException,
+  })
+  async deletarProdutorId(
+    @Param() parametros: ObterProdutorIdRequest
+  ): Promise<void> {
+    await this._produtorService.deleteProdutorId(parametros);
   }
 }

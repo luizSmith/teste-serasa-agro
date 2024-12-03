@@ -16,7 +16,7 @@ export class ProdutorService {
   }
 
   async obterProdutorId(parametros: ObterProdutorIdRequest): Promise<ObterProdutorResponse> {
-    const produtor = await this._produtorRepository.obterProdutorId(parametros.id);
+    const produtor = await this._produtorRepository.obterProdutorId(parametros.idProdutor);
 
     if (!produtor) {
       throw new RegraDeNegocioException(['Produtor não existe'], 404);
@@ -39,4 +39,13 @@ export class ProdutorService {
     }
   }
 
+  async deleteProdutorId(parametros: ObterProdutorIdRequest): Promise<void> {
+    const produtor = await this._produtorRepository.obterProdutorId(parametros.idProdutor);
+
+    if (!produtor) {
+      throw new RegraDeNegocioException(['Produtor não existe'], 404);
+    }
+
+    await this._produtorRepository.deletarProdutorId(parametros.idProdutor);
+  }
 }

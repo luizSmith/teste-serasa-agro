@@ -6,5 +6,5 @@ export class ObterProdutorIdRequest {
         description: 'ID do Produtor',
     })
     @IsNotEmpty({ message: 'Parâmetro id é obrigatório' })
-    id: number;
+    idProdutor: string;
 }
