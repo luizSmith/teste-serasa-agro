@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LivrosControllerModule } from './controller/produtor.controller.module';
+import { LivrosControllerModule } from './controller/produtor/produtor.controller.module';
 
 @Module({
   imports: [

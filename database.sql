@@ -35,7 +35,7 @@ CREATE TABLE fazenda (
     qt_total_agricultavel DECIMAL(7, 2) NOT NULL,
     id_produtor UUID NOT NULL,
     id_cidade UUID NOT NULL,
-    FOREIGN KEY (id_produtor) REFERENCES produtor(id)
+    FOREIGN KEY (id_produtor) REFERENCES produtor(id),
     FOREIGN KEY (id_cidade) REFERENCES cidade(id)
 );
 

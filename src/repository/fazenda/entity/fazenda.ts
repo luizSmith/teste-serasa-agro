@@ -1,5 +1,5 @@
 import { Cidade } from 'src/repository/cidade/entity/cidade';
-import { Produtor } from 'src/repository/produtor/entity/produtos';
+import { Produtor } from 'src/repository/produtor/entity/produtor.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 

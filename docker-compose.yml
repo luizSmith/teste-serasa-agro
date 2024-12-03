@@ -1,11 +1,11 @@
 services:
-  agriculture_db:
-    container_name: agriculture_db
+  db_agricultura:
+    container_name: db_agricultura
     image: postgres:12
     environment:
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: db_agricultura
     ports:
       - "5432:5432"
     volumes:
