@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ObterProdutorIdRequest } from 'src/controller/produtor/request/obterProdutorId.request';
 import { ObterProdutorResponse } from 'src/controller/produtor/response/obterProdutor.response';
+import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeNegocio.exceptions';
 import { ProdutorRepository } from 'src/repository/produtor/produtor.repository';
 
 @Injectable()
@@ -14,6 +15,11 @@ export class ProdutorService {
 
   async obterProdutorId(parametros: ObterProdutorIdRequest): Promise<ObterProdutorResponse> {
     const produtor = await this._produtorRepository.obterProdutorId(parametros.id);
+
+    if (!produtor) {
+      throw new RegraDeNegocioException(['Produtor não existe'], 404);
+    }
+
     return produtor
   }
 }
