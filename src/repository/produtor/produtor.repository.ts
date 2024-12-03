@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Produtor } from "./entity/produtor.entity";
 import { Repository } from "typeorm";
+import { CriarProdutorDTO } from "src/model/produtor/criarProdutor.dto";
 
 @Injectable()
 export class ProdutorRepository {
@@ -27,5 +28,9 @@ export class ProdutorRepository {
             .getOne()
 
         return produtor;
+    }
+
+    async criarProdutor(parametros: CriarProdutorDTO): Promise<Produtor> {
+        return await this._produtorRepository.create(parametros).save();
     }
 }

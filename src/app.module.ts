@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LivrosControllerModule } from './controller/produtor/produtor.controller.module';
+import { ProdutorControllerModule } from './controller/produtor/produtor.controller.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { LivrosControllerModule } from './controller/produtor/produtor.controlle
       logging: process.env.LOGGING == 'true',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
-    LivrosControllerModule,
+    ProdutorControllerModule,
   ],
 })
 export class AppModule { }

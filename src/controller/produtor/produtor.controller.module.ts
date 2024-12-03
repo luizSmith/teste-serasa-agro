@@ -6,4 +6,4 @@ import { ProdutorController } from './produtor.controller';
     controllers: [ProdutorController],
     imports: [ProdutorServiceModule],
 })
-export class LivrosControllerModule { }
+export class ProdutorControllerModule { }
