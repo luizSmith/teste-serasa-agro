@@ -26,7 +26,7 @@ CREATE TABLE cidade (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nome VARCHAR(70) NOT NULL,
     uf VARCHAR(2) NOT NULL,
-    FOREIGN KEY (uf) REFERENCES estado(uf)
+    FOREIGN KEY (uf) REFERENCES estado(uf) ON DELETE CASCADE
 );
 
 CREATE TABLE fazenda (
@@ -34,16 +34,20 @@ CREATE TABLE fazenda (
     nome VARCHAR(70) NOT NULL,
     qt_total_hectares DECIMAL(7, 2) NOT NULL,
     qt_total_agricultavel DECIMAL(7, 2) NOT NULL,
+    logradouro VARCHAR(200) NOT NULL,
+    numero INTEGER NOT NULL,
+    referencia VARCHAR(200) NOT NULL,
     id_produtor UUID NOT NULL,
     id_cidade UUID NOT NULL,
-    FOREIGN KEY (id_produtor) REFERENCES produtor(id),
-    FOREIGN KEY (id_cidade) REFERENCES cidade(id)
+    FOREIGN KEY (id_produtor) REFERENCES produtor(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_cidade) REFERENCES cidade(id) ON DELETE CASCADE
 );
 
 CREATE TABLE fazenda_cultura (
     id_cultura UUID NOT NULL,
     id_fazenda UUID NOT NULL,
     qt_vegetacao DECIMAL(7, 2) NOT NULL,
-    FOREIGN KEY (id_cultura) REFERENCES cultura(id),
-    FOREIGN KEY (id_fazenda) REFERENCES fazenda(id)
+    PRIMARY KEY (id_cultura, id_fazenda),
+    FOREIGN KEY (id_cultura) REFERENCES cultura(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_fazenda) REFERENCES fazenda(id) ON DELETE CASCADE
 );
