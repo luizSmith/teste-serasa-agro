@@ -26,8 +26,8 @@ export class Fazenda extends BaseEntity {
     referencia: string;
 
     @Column({ name: 'id_produtor', type: 'uuid', nullable: false })
-    produtor: string;
+    idProdutor: string;
 
     @Column({ name: 'id_cidade', type: 'uuid', nullable: false })
-    cidade: string;
+    idCidade: string;
 }

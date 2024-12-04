@@ -5,6 +5,6 @@ export class CriarFazendaDTO {
     logradouro: string;
     numero: number;
     referencia: string;
-    produtor: string;
-    cidade: string;
+    idProdutor: string;
+    idCidade: string;
 }

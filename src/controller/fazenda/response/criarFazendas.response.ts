@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ObterFazendaResponse {
+export class CriarFazendaResponse {
     @ApiProperty({
         description: 'ID da Fazenda',
     })

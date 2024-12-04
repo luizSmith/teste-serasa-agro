@@ -6,7 +6,7 @@ import { FazendaService } from "src/service/fazenda/fazenda.service";
 import { ObterFazendasRequest } from "./request/obterFazendas.request";
 import { ObterFazendaResponse } from "./response/obterFazendas.response";
 import { CriarFazendaRequest } from "./request/criarFazendas.request";
-import { Fazenda } from "src/repository/fazenda/entity/fazenda.entity";
+import { CriarFazendaResponse } from "./response/criarFazendas.response";
 
 @Controller('fazenda')
 @ApiTags('Fazenda')
@@ -32,14 +32,29 @@ export class FazendaController {
     })
     async obterFazendas(
         @Param() parametros: ObterFazendasRequest
-    ): Promise<Fazenda[]> {
+    ): Promise<ObterFazendaResponse[]> {
         return await this._fazendaService.obterFazendas(parametros);
     }
 
     @Post()
+    @ApiResponse({
+        status: HttpStatus.CREATED,
+        description: 'Sucesso',
+        type: CriarFazendaResponse,
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_GATEWAY,
+        description: 'BAD_GATEWAY',
+        type: ErroPersonalizadoException,
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'NOT_FOUND',
+        type: RegraDeNegocioException,
+    })
     async criarFazenda(
         @Body() parametros: CriarFazendaRequest
-    ): Promise<void> {
-        await this._fazendaService.criarFazenda(parametros);
+    ): Promise<CriarFazendaResponse> {
+        return await this._fazendaService.criarFazenda(parametros);
     }
 }

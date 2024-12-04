@@ -3,13 +3,14 @@ import { FazendaRepository } from "src/repository/fazenda/fazenda.repository";
 import { ProdutorService } from "../produtor/produtor.service";
 import { ObterFazendasRequest } from "src/controller/fazenda/request/obterFazendas.request";
 import { CriarFazendaRequest } from "src/controller/fazenda/request/criarFazendas.request";
-import { Fazenda } from "src/repository/fazenda/entity/fazenda.entity";
 import { ViaCepClient } from "src/repository/client/viaCep/viaCep.client";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { CidadeService } from "../cidade/cidade.service";
-import { CriarFazendaDTO } from "src/model/fazenda/criarFazenda.dto";
-import { TratarCidadeDTO } from "src/model/fazenda/tratarCidade.dto";
+import { CriarFazendaDTO } from "src/model/fazenda/dto/criarFazenda.dto";
+import { TratarCidadeDTO } from "src/model/fazenda/dto/tratarCidade.dto";
 import { Cidade } from "src/repository/cidade/entity/cidade.entity";
+import { ObterFazendaResponse } from "src/controller/fazenda/response/obterFazendas.response";
+import { CriarFazendaResponse } from "src/controller/fazenda/response/criarFazendas.response";
 
 @Injectable()
 export class FazendaService {
@@ -20,7 +21,7 @@ export class FazendaService {
         private _cidadeService: CidadeService,
     ) { }
 
-    async obterFazendas(parametros: ObterFazendasRequest): Promise<Fazenda[]> {
+    async obterFazendas(parametros: ObterFazendasRequest): Promise<ObterFazendaResponse[]> {
         await this._produtorService.obterProdutorId(parametros)
 
         const fazendas = await this._fazendaRepository.obterFazendas(parametros.idProdutor)
@@ -28,7 +29,7 @@ export class FazendaService {
         return fazendas;
     }
 
-    async criarFazenda(parametros: CriarFazendaRequest): Promise<Fazenda> {
+    async criarFazenda(parametros: CriarFazendaRequest): Promise<CriarFazendaResponse> {
         await this._produtorService.obterProdutorId({
             idProdutor: parametros.idProdutor
         })
@@ -51,8 +52,8 @@ export class FazendaService {
             logradouro: endereco.logradouro,
             numero: parametros.numero,
             referencia: parametros.referencia,
-            produtor: parametros.idProdutor,
-            cidade: cidade.id
+            idProdutor: parametros.idProdutor,
+            idCidade: cidade.id
         }
 
         const fazenda = await this._fazendaRepository.criarFazenda(parametrosFazenda);
