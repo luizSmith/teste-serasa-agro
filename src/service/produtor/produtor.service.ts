@@ -4,8 +4,8 @@ import { ObterProdutorIdRequest } from 'src/controller/produtor/request/obterPro
 import { CriarProdutorResponse } from 'src/controller/produtor/response/criarProdutor.response';
 import { ObterProdutorResponse } from 'src/controller/produtor/response/obterProdutor.response';
 import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeNegocio.exceptions';
-import { AtualizarProdutorDTO } from 'src/model/produtor/atualizarProdutor.dto';
-import { CriarProdutorDTO } from 'src/model/produtor/criarProdutor.dto';
+import { AtualizarProdutorDTO } from 'src/model/produtor/dto/atualizarProdutor.dto';
+import { CriarProdutorDTO } from 'src/model/produtor/dto/criarProdutor.dto';
 import { Produtor } from 'src/repository/produtor/entity/produtor.entity';
 import { ProdutorRepository } from 'src/repository/produtor/produtor.repository';
 

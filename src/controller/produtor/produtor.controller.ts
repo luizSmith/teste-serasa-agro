@@ -78,6 +78,7 @@ export class ProdutorController {
   }
 
   @Delete(':idProdutor')
+  @HttpCode(204)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'Sucesso'

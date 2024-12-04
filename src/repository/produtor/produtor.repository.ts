@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Produtor } from "./entity/produtor.entity";
 import { Repository } from "typeorm";
-import { CriarProdutorDTO } from "src/model/produtor/criarProdutor.dto";
-import { AtualizarProdutorDTO } from "src/model/produtor/atualizarProdutor.dto";
+import { CriarProdutorDTO } from "src/model/produtor/dto/criarProdutor.dto";
+import { AtualizarProdutorDTO } from "src/model/produtor/dto/atualizarProdutor.dto";
 
 @Injectable()
 export class ProdutorRepository {
@@ -15,7 +15,12 @@ export class ProdutorRepository {
     async obterProdutor(): Promise<Produtor[]> {
         const produtor = await this._produtorRepository
             .createQueryBuilder('produtor')
-            .select()
+            .select('produtor.id', 'id')
+            .addSelect('produtor.nome', 'nome')
+            .addSelect('produtor.cnpj', 'cnpj')
+            .addSelect('produtor.cpf', 'cpf')
+            .addSelect('produtor.ativo', 'ativo')
+            .addSelect('produtor.criado', 'criado')
             .getRawMany<Produtor>();
 
         return produtor;
