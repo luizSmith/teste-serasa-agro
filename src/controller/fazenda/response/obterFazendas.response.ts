@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cidade } from 'src/repository/cidade/entity/cidade';
-import { Produtor } from 'src/repository/produtor/entity/produtor.entity';
 
-export class FazendaResponse {
+export class ObterFazendaResponse {
     @ApiProperty({
         description: 'ID da Fazenda',
     })
@@ -40,13 +38,11 @@ export class FazendaResponse {
 
     @ApiProperty({
         description: 'Produtor da Fazenda',
-        type: Produtor
     })
-    produtor: Produtor;
+    produtor: string;
 
     @ApiProperty({
         description: 'Cidade onde a Fazenda está localizada',
-        type: Cidade,
     })
-    cidade: Cidade;
+    cidade: string;
 }

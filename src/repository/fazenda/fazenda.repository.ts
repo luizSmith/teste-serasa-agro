@@ -1,7 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Fazenda } from "./entity/fazenda.entity";
+
 import { Repository } from "typeorm";
+import { Fazenda } from "./entity/fazenda.entity";
+import { CriarFazendaDTO } from "src/model/fazenda/criarFazenda.dto";
+
 
 @Injectable()
 export class FazendaRepository {
@@ -18,5 +21,9 @@ export class FazendaRepository {
             .getRawMany<Fazenda>();
 
         return fazenda;
+    }
+
+    async criarFazenda(parametros: CriarFazendaDTO): Promise<Fazenda> {
+        return await this._fazendaRepository.create(parametros).save()
     }
 }

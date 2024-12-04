@@ -1,21 +1,20 @@
-import { Cidade } from 'src/repository/cidade/entity/cidade';
-import { Produtor } from 'src/repository/produtor/entity/produtor.entity';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-
-@Entity()
-export class Fazenda {
+@Entity('fazenda', {
+    database: 'db_agricultura',
+})
+export class Fazenda extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column({ type: 'varchar', length: 70, nullable: false })
     nome: string;
 
-    @Column({ type: 'decimal', precision: 7, scale: 2, nullable: false })
-    qt_total_hectares: number;
+    @Column({ name: 'qt_total_hectares', type: 'decimal', precision: 7, scale: 2, nullable: false })
+    qtTotalHectares: number;
 
-    @Column({ type: 'decimal', precision: 7, scale: 2, nullable: false })
-    qt_total_agricultavel: number;
+    @Column({ name: 'qt_total_agricultavel', type: 'decimal', precision: 7, scale: 2, nullable: false })
+    qtTotalAgricultavel: number;
 
     @Column({ type: 'varchar', length: 200, nullable: false })
     logradouro: string;
@@ -26,9 +25,9 @@ export class Fazenda {
     @Column({ type: 'varchar', length: 200, nullable: false })
     referencia: string;
 
-    @JoinColumn({ name: 'id_produtor' })
-    produtor: Produtor;
+    @Column({ name: 'id_produtor', type: 'uuid', nullable: false })
+    produtor: string;
 
-    @JoinColumn({ name: 'id_cidade' })
-    cidade: Cidade;
+    @Column({ name: 'id_cidade', type: 'uuid', nullable: false })
+    cidade: string;
 }
