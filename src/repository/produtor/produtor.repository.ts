@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Produtor } from "./entity/produtor.entity";
 import { Repository } from "typeorm";
 import { CriarProdutorDTO } from "src/model/produtor/criarProdutor.dto";
+import { AtualizarProdutorDTO } from "src/model/produtor/atualizarProdutor.dto";
 
 @Injectable()
 export class ProdutorRepository {
@@ -44,6 +45,19 @@ export class ProdutorRepository {
             },
             {
                 ativo: false,
+            }
+        );
+
+        return produtor.affected || 0;
+    }
+
+    async atualizarProdutor(idProdutor: string, parametros: AtualizarProdutorDTO): Promise<number> {
+        const produtor = await this._produtorRepository.update(
+            {
+                id: idProdutor
+            },
+            {
+                ...parametros
             }
         );
 
