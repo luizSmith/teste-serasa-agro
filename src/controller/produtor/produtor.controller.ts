@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProdutorService } from 'src/service/produtor.service';
 import { ObterProdutorResponse } from './response/obterProdutor.response';
 import { ObterProdutorIdRequest } from './request/obterProdutorId.request';
 import { ErroPersonalizadoException } from 'src/infraestructure/exceptions/erroPersonalizado.exceptions';
@@ -8,6 +7,7 @@ import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeN
 import { CriarProdutorResponse } from './response/criarProdutor.response';
 import { CriarProdutorRequest } from './request/criarProdutor.request';
 import { AtualizarProdutorRequest } from './request/atualizarProdutor.request';
+import { ProdutorService } from 'src/service/produtor/produtor.service';
 
 @Controller('produtor')
 @ApiTags('Produtor')

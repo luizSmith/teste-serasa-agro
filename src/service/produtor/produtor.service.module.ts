@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ProdutorService } from './produtor.service';
+
 import { ProdutorRepositoryModule } from 'src/repository/produtor/produtor.repository.module';
+import { ProdutorService } from './produtor.service';
 
 @Module({
   imports: [ProdutorRepositoryModule],

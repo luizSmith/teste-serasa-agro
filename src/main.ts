@@ -22,4 +22,6 @@ async function bootstrap() {
   await app.listen(port);
   console.info('APP LISTENING ON PORT: ' + port);
 }
+
+
 bootstrap();
