@@ -81,8 +81,8 @@ export class ViaCepClient {
             );
 
             throw new ErroPersonalizadoException(
-                response.data.message[0],
-                response.status
+                'Erro ao obter Endereço, CEP pode não ser válido',
+                400
             );
         }
     }
