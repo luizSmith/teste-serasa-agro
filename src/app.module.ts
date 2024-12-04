@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProdutorControllerModule } from './controller/produtor/produtor.controller.module';
+import { FazendaControllerModule } from './controller/fazenda/fazenda.controller.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ProdutorControllerModule } from './controller/produtor/produtor.control
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     ProdutorControllerModule,
+    FazendaControllerModule,
   ],
 })
 export class AppModule { }
