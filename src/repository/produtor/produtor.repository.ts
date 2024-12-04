@@ -24,7 +24,7 @@ export class ProdutorRepository {
         const produtor = await this._produtorRepository
             .createQueryBuilder('produtor')
             .select()
-            .where('produtor.id = :idProdutor', { idProdutor })
+            .where(`produtor.id = :idProdutor`, { idProdutor })
             .getOne()
 
         return produtor;
