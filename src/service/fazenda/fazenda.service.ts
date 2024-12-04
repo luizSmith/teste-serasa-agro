@@ -8,6 +8,8 @@ import { ViaCepClient } from "src/repository/client/viaCep/viaCep.client";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { CidadeService } from "../cidade/cidade.service";
 import { CriarFazendaDTO } from "src/model/fazenda/criarFazenda.dto";
+import { TratarCidadeDTO } from "src/model/fazenda/tratarCidade.dto";
+import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 
 @Injectable()
 export class FazendaService {
@@ -37,17 +39,10 @@ export class FazendaService {
             throw new RegraDeNegocioException(['Cep não é válido'], 400);
         }
 
-        let cidade = await this._cidadeService.obterCidadeNomeUf({
+        const cidade = await this.tratarCidade({
             nome: endereco.localidade,
             uf: endereco.uf
-        });
-
-        if (!cidade) {
-            cidade = await this._cidadeService.criarCidade({
-                nome: endereco.localidade,
-                uf: endereco.uf
-            });
-        }
+        })
 
         const parametrosFazenda: CriarFazendaDTO = {
             nome: parametros.nome,
@@ -63,5 +58,21 @@ export class FazendaService {
         const fazenda = await this._fazendaRepository.criarFazenda(parametrosFazenda);
 
         return fazenda;
+    }
+
+    private async tratarCidade(parametros: TratarCidadeDTO): Promise<Cidade> {
+        let cidade = await this._cidadeService.obterCidadeNomeUf({
+            nome: parametros.nome,
+            uf: parametros.uf
+        });
+
+        if (!cidade) {
+            cidade = await this._cidadeService.criarCidade({
+                nome: parametros.nome,
+                uf: parametros.uf
+            });
+        }
+
+        return cidade;
     }
 }

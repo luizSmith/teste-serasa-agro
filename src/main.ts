@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidacaoCustomizadaPipe } from './infraestructure/pipe/validacaoCustomizada.pipe';
-import { initializeTransactionalContext, patchTypeORMRepositoryWithBaseRepository } from 'typeorm-transactional-cls-hooked';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

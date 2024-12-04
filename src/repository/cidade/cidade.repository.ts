@@ -14,7 +14,7 @@ export class CidadeRepository {
     ) { }
 
     async obterCidadeNomeUf(parametros: ObterCidadeDTO): Promise<Cidade> {
-        return this._cidadeRepository.createQueryBuilder('cidade')
+        return await this._cidadeRepository.createQueryBuilder('cidade')
             .where('cidade.nome = :nome', { nome: parametros.nome })
             .andWhere('cidade.uf = :uf', { uf: parametros.uf })
             .getOne()
