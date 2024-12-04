@@ -14,12 +14,12 @@ export class ObterFazendaResponse {
     @ApiProperty({
         description: 'Quantidade total de hectares da Fazenda',
     })
-    qtTotalHectares: number;
+    quantidadeTotalHectares: number;
 
     @ApiProperty({
         description: 'Quantidade total de hectares agricultáveis da Fazenda',
     })
-    qtTotalAgricultavel: number;
+    quantidadeTotalAgricultavel: number;
 
     @ApiProperty({
         description: 'Logradouro da Fazenda',
