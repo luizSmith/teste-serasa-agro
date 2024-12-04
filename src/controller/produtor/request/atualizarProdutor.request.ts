@@ -3,7 +3,7 @@ import { IsNotEmpty, ValidateIf } from 'class-validator';
 import { validaCNPJ } from 'src/infraestructure/pipe/validation/validaCNPJ.pipe';
 import { IsValidCPF } from 'src/infraestructure/pipe/validation/validaCPF.pipe';
 
-export class CriarProdutorRequest {
+export class AtualizarProdutorRequest {
     @ApiProperty({
         description: 'nome do Produtor'
     })

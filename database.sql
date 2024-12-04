@@ -2,9 +2,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE produtor (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nome VARCHAR(70) UNIQUE NOT NULL,
+    nome VARCHAR(70) NOT NULL,
     cnpj VARCHAR(18) UNIQUE,
     cpf VARCHAR(14) UNIQUE,
+    ativo BOOLEAN,
     criado TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT cnpj_ou_cpf CHECK (
         (cnpj IS NOT NULL AND cpf IS NULL) OR (cnpj IS NULL AND cpf IS NOT NULL)
@@ -23,14 +24,14 @@ CREATE TABLE estado (
 
 CREATE TABLE cidade (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nome VARCHAR(70) UNIQUE NOT NULL,
+    nome VARCHAR(70) NOT NULL,
     uf VARCHAR(2) NOT NULL,
     FOREIGN KEY (uf) REFERENCES estado(uf)
 );
 
 CREATE TABLE fazenda (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nome VARCHAR(70) UNIQUE NOT NULL,
+    nome VARCHAR(70) NOT NULL,
     qt_total_hectares DECIMAL(7, 2) NOT NULL,
     qt_total_agricultavel DECIMAL(7, 2) NOT NULL,
     id_produtor UUID NOT NULL,

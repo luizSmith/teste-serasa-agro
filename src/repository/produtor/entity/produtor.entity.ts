@@ -16,6 +16,9 @@ export class Produtor extends BaseEntity {
     @Column({ type: 'varchar', length: 14, nullable: true, unique: true })
     cpf: string;
 
+    @Column()
+    ativo: boolean;
+
     @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     criado: Date;
 }

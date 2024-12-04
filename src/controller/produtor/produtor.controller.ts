@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProdutorService } from 'src/service/produtor.service';
 import { ObterProdutorResponse } from './response/obterProdutor.response';
@@ -7,6 +7,7 @@ import { ErroPersonalizadoException } from 'src/infraestructure/exceptions/erroP
 import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeNegocio.exceptions';
 import { CriarProdutorResponse } from './response/criarProdutor.response';
 import { CriarProdutorRequest } from './request/criarProdutor.request';
+import { AtualizarProdutorRequest } from './request/atualizarProdutor.request';
 
 @Controller('produtor')
 @ApiTags('Produtor')
@@ -74,5 +75,49 @@ export class ProdutorController {
   })
   async criarProdutor(@Body() parametros: CriarProdutorRequest): Promise<CriarProdutorResponse> {
     return await this._produtorService.criarProdutor(parametros);
+  }
+
+  @Delete(':idProdutor')
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Sucesso'
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_GATEWAY,
+    description: 'BAD_GATEWAY',
+    type: ErroPersonalizadoException,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'NOT_FOUND',
+    type: RegraDeNegocioException,
+  })
+  async deletarProdutorId(
+    @Param() parametros: ObterProdutorIdRequest
+  ): Promise<void> {
+    await this._produtorService.deleteProdutorId(parametros);
+  }
+
+  @Put(':idProdutor')
+  @HttpCode(204)
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Sucesso'
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_GATEWAY,
+    description: 'BAD_GATEWAY',
+    type: ErroPersonalizadoException,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'NOT_FOUND',
+    type: RegraDeNegocioException,
+  })
+  async atualizarProdutor(
+    @Param() parametros: ObterProdutorIdRequest,
+    @Body() body: AtualizarProdutorRequest
+  ): Promise<void> {
+    await this._produtorService.atualizarProdutor(parametros.idProdutor, body);
   }
 }
