@@ -11,6 +11,7 @@ import { TratarCidadeDTO } from "src/model/fazenda/dto/tratarCidade.dto";
 import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 import { ObterFazendaResponse } from "src/controller/fazenda/response/obterFazendas.response";
 import { CriarFazendaResponse } from "src/controller/fazenda/response/criarFazendas.response";
+import { Transactional } from "typeorm-transactional";
 
 @Injectable()
 export class FazendaService {
@@ -29,6 +30,7 @@ export class FazendaService {
         return fazendas;
     }
 
+    @Transactional()
     async criarFazenda(parametros: CriarFazendaRequest): Promise<CriarFazendaResponse> {
         await this._produtorService.obterProdutorId({
             idProdutor: parametros.idProdutor
