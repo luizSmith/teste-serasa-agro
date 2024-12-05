@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-2:686255943849:task-definition/nodejs-app-task-definition:3",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:686255943849:task-definition/nodejs-app-task-definition:1",
     "containerDefinitions": [
         {
             "name": "nodeapp",
-            "image": "686255943849.dkr.ecr.us-east-2.amazonaws.com/nodeapp",
+            "image": "686255943849.dkr.ecr.us-east-1.amazonaws.com/nodeapp",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "node-agricultura-80-tcp",
+                    "name": "nodeapp-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp",
@@ -48,7 +48,7 @@
                     "mode": "non-blocking",
                     "awslogs-create-group": "true",
                     "max-buffer-size": "25m",
-                    "awslogs-region": "us-east-2",
+                    "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
@@ -60,7 +60,7 @@
     "taskRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 3,
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -109,7 +109,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-12-05T22:33:38.148Z",
+    "registeredAt": "2024-12-05T23:28:31.749Z",
     "registeredBy": "arn:aws:iam::686255943849:root",
     "tags": []
 }
