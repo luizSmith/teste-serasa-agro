@@ -18,13 +18,6 @@ export class CriarFazendaRequest {
     qtTotalHectares: number;
 
     @ApiProperty({
-        description: 'Quantidade total de hectares agricultáveis da Fazenda',
-        example: 850.75,
-    })
-    @IsNumber()
-    qtTotalAgricultavel: number;
-
-    @ApiProperty({
         description: 'Cep do endereco',
         example: '01001000',
     })

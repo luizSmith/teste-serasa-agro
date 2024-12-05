@@ -47,14 +47,9 @@ export class FazendaService {
             uf: endereco.uf
         })
 
-        if (parametros.qtTotalHectares < parametros.qtTotalAgricultavel) {
-            throw new RegraDeNegocioException(['Area agrícultavel não pode ser maior que a quantidade total'], 400);
-        }
-
         const parametrosFazenda: CriarFazendaDTO = {
             nome: parametros.nome,
             qtTotalHectares: parametros.qtTotalHectares,
-            qtTotalAgricultavel: parametros.qtTotalAgricultavel,
             logradouro: endereco.logradouro,
             numero: parametros.numero,
             referencia: parametros.referencia,
@@ -81,5 +76,15 @@ export class FazendaService {
         }
 
         return cidade;
+    }
+
+    async obterFazendaId(idFazenda: string): Promise<ObterFazendaResponse> {
+        const fazenda = await this._fazendaRepository.obterFazendaId(idFazenda)
+
+        if (!fazenda) {
+            throw new RegraDeNegocioException(['idFazenda não é valido'], 400);
+        }
+
+        return fazenda;
     }
 }

@@ -1,8 +1,7 @@
-export class CriarFazendaDAO {
+export class ObterFazendaIdDAO {
     id: string;
     nome: string;
     quantidadeTotalHectares: number;
-    quantidadeTotalAgricultavel: number;
     logradouro: string;
     numero: number;
     referencia: string;

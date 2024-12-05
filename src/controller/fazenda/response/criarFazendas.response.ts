@@ -17,11 +17,6 @@ export class CriarFazendaResponse {
     qtTotalHectares: number;
 
     @ApiProperty({
-        description: 'Quantidade total de hectares agricultáveis da Fazenda',
-    })
-    qtTotalAgricultavel: number;
-
-    @ApiProperty({
         description: 'Logradouro da Fazenda',
     })
     logradouro: string;

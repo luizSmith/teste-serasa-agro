@@ -13,9 +13,6 @@ export class Fazenda extends BaseEntity {
     @Column({ name: 'qt_total_hectares', type: 'decimal', precision: 7, scale: 2, nullable: false })
     qtTotalHectares: number;
 
-    @Column({ name: 'qt_total_agricultavel', type: 'decimal', precision: 7, scale: 2, nullable: false })
-    qtTotalAgricultavel: number;
-
     @Column({ type: 'varchar', length: 200, nullable: false })
     logradouro: string;
 
