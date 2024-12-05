@@ -46,7 +46,6 @@ CREATE TABLE fazenda_cultura (
     id_cultura UUID NOT NULL,
     id_fazenda UUID NOT NULL,
     qt_vegetacao DECIMAL(7, 2) NOT NULL,
-    PRIMARY KEY (id_cultura, id_fazenda),
     FOREIGN KEY (id_cultura) REFERENCES cultura(id) ON DELETE CASCADE,
     FOREIGN KEY (id_fazenda) REFERENCES fazenda(id) ON DELETE CASCADE
 );
