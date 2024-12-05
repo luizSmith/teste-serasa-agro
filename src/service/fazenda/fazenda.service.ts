@@ -47,6 +47,10 @@ export class FazendaService {
             uf: endereco.uf
         })
 
+        if (parametros.qtTotalHectares < parametros.qtTotalAgricultavel) {
+            throw new RegraDeNegocioException(['Area agrícultavel não pode ser maior que a quantidade total'], 400);
+        }
+
         const parametrosFazenda: CriarFazendaDTO = {
             nome: parametros.nome,
             qtTotalHectares: parametros.qtTotalHectares,
