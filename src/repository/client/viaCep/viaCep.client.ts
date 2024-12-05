@@ -35,7 +35,7 @@ export class ViaCepClient {
     ): Promise<Axios.AxiosResponse<unknown>> {
         const start = response.config.headers?.['request-startTime'];
 
-        const milliseconds = this.calculateResponseMS(Number(start));
+        const milliseconds = this._calculateResponseMS(Number(start));
 
         console.info(this.nomeApi,
             `SUCCESS - ${milliseconds}ms`,
@@ -55,7 +55,7 @@ export class ViaCepClient {
 
         if (!response) return axiosError;
 
-        const milliseconds = this.calculateResponseMS(Number(start));
+        const milliseconds = this._calculateResponseMS(Number(start));
 
         if (response.status === 500) {
             console.error(this.nomeApi,
@@ -87,7 +87,7 @@ export class ViaCepClient {
         }
     }
 
-    private calculateResponseMS(start: number | undefined): number {
+    private _calculateResponseMS(start: number | undefined): number {
         if (!start) return -1;
 
         const end = Date.now();

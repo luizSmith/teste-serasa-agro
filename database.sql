@@ -46,7 +46,44 @@ CREATE TABLE fazenda_cultura (
     id_cultura UUID NOT NULL,
     id_fazenda UUID NOT NULL,
     qt_vegetacao DECIMAL(7, 2) NOT NULL,
-    PRIMARY KEY (id_cultura, id_fazenda),
     FOREIGN KEY (id_cultura) REFERENCES cultura(id) ON DELETE CASCADE,
     FOREIGN KEY (id_fazenda) REFERENCES fazenda(id) ON DELETE CASCADE
 );
+
+INSERT INTO cultura (nome)
+VALUES
+  ('Soja'),
+  ('Milho'),
+  ('Algodão'),
+  ('Café'),
+  ('Cana de Açúcar');
+  
+ 
+ INSERT INTO estado (uf, nome) VALUES
+('AC', 'Acre'),
+('AL', 'Alagoas'),
+('AP', 'Amapá'),
+('AM', 'Amazonas'),
+('BA', 'Bahia'),
+('CE', 'Ceará'),
+('DF', 'Distrito Federal'),
+('ES', 'Espírito Santo'),
+('GO', 'Goiás'),
+('MA', 'Maranhão'),
+('MT', 'Mato Grosso'),
+('MS', 'Mato Grosso do Sul'),
+('MG', 'Minas Gerais'),
+('PA', 'Pará'),
+('PB', 'Paraíba'),
+('PR', 'Paraná'),
+('PE', 'Pernambuco'),
+('PI', 'Piauí'),
+('RJ', 'Rio de Janeiro'),
+('RN', 'Rio Grande do Norte'),
+('RS', 'Rio Grande do Sul'),
+('RO', 'Rondônia'),
+('RR', 'Roraima'),
+('SC', 'Santa Catarina'),
+('SP', 'São Paulo'),
+('SE', 'Sergipe'),
+('TO', 'Tocantins');

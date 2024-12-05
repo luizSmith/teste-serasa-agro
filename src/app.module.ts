@@ -6,6 +6,7 @@ import { FazendaControllerModule } from './controller/fazenda/fazenda.controller
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
 import { VegetacaoControllerModule } from './controller/vegetacao/vegetacao.controller.module';
+import { PainelControllerModule } from './controller/painel/painel.controlle.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { VegetacaoControllerModule } from './controller/vegetacao/vegetacao.cont
     ProdutorControllerModule,
     FazendaControllerModule,
     VegetacaoControllerModule,
+    PainelControllerModule,
   ],
 })
 export class AppModule { }
