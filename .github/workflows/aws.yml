@@ -14,7 +14,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCEfS_KEY }}
           aws-region: us-east-2
       - name: Login to Amazon ECR
         run: |
@@ -30,9 +30,9 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT    
+          docker build -t nodeapp .
+          docker tag nodeapp:latest 686255943849.dkr.ecr.us-east-2.amazonaws.com/nodeapp:latest
+          docker push 686255943849.dkr.ecr.us-east-2.amazonaws.com/nodeapp:latest
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
