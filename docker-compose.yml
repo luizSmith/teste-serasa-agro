@@ -10,6 +10,29 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  app:
+    container_name: app_agriculture
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_agricultura
+    environment:
+      - HOST_DB=db_agricultura
+      - USERNAME_DB=postgres
+      - PASSWORD_DB=1234
+      - DATABASE=db_agricultura
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   pgdata: {}
