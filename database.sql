@@ -33,7 +33,6 @@ CREATE TABLE fazenda (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nome VARCHAR(70) NOT NULL,
     qt_total_hectares DECIMAL(7, 2) NOT NULL,
-    qt_total_agricultavel DECIMAL(7, 2) NOT NULL,
     logradouro VARCHAR(200) NOT NULL,
     numero INTEGER NOT NULL,
     referencia VARCHAR(200) NOT NULL,
