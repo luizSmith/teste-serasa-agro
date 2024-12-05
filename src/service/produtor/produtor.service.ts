@@ -29,12 +29,12 @@ export class ProdutorService {
   }
 
   async criarProdutor(parametros: CriarProdutorDTO): Promise<CriarProdutorResponse> {
-    this.validarCpfECnpj(parametros.cnpj, parametros.cpf);
+    this._validarCpfECnpj(parametros.cnpj, parametros.cpf);
 
     return await this._produtorRepository.criarProdutor(parametros);
   }
 
-  private validarCpfECnpj(cnpj: string, cpf: string): void {
+  private _validarCpfECnpj(cnpj: string, cpf: string): void {
     const validar = ((!cnpj && !cpf) || (cnpj && cpf))
 
     if (validar) {

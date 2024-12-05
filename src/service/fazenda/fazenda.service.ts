@@ -42,7 +42,7 @@ export class FazendaService {
             throw new RegraDeNegocioException(['Cep não é válido'], 400);
         }
 
-        const cidade = await this.tratarCidade({
+        const cidade = await this._tratarCidade({
             nome: endereco.localidade,
             uf: endereco.uf
         })
@@ -62,7 +62,7 @@ export class FazendaService {
         return fazenda;
     }
 
-    private async tratarCidade(parametros: TratarCidadeDTO): Promise<Cidade> {
+    private async _tratarCidade(parametros: TratarCidadeDTO): Promise<Cidade> {
         let cidade = await this._cidadeService.obterCidadeNomeUf({
             nome: parametros.nome,
             uf: parametros.uf
