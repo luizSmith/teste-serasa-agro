@@ -18,4 +18,8 @@ export class CulturaService {
 
         return cultura
     }
+
+    async obterCultura(): Promise<Cultura[]> {
+        return await this._culturaRepository.obterCultura();
+    }
 }
