@@ -13,11 +13,11 @@ export class CidadeRepository {
         private readonly _cidadeRepository: Repository<Cidade>
     ) { }
 
-    async obterCidadeNomeUf(parametros: ObterCidadeDTO): Promise<Cidade> {
+    async obterCidadeNomeUf(parametros: ObterCidadeDTO): Promise<Cidade | null> {
         return await this._cidadeRepository.createQueryBuilder('cidade')
             .where('cidade.nome = :nome', { nome: parametros.nome })
             .andWhere('cidade.uf = :uf', { uf: parametros.uf })
-            .getOne()
+            .getRawOne()
     }
 
     async criarCidade(parametros: CriarCidadeDTO): Promise<Cidade> {
