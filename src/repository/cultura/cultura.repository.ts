@@ -16,4 +16,11 @@ export class CulturaRepository {
             .where('cultura.id = :idCultura', { idCultura })
             .getOne()
     }
+
+    async obterCultura(): Promise<Cultura[]> {
+        return await this._culturaRepository.createQueryBuilder('cultura')
+            .select('cultura.id', "id")
+            .addSelect('cultura.nome', "nome")
+            .getRawMany()
+    }
 }
