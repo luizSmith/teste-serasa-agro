@@ -41,4 +41,18 @@ import { PainelControllerModule } from './controller/painel/painel.controlle.mod
     PainelControllerModule,
   ],
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    console.log("variaveis acesso", {
+      type: 'postgres',
+      port: Number(process.env.PORT_DB) || 5432,
+      host: process.env.HOST_DB,
+      username: process.env.USERNAME_DB,
+      password: process.env.PASSWORD_DB,
+      database: process.env.DATABASE,
+      logging: process.env.LOGGING == 'true',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      ssl: { rejectUnauthorized: false }
+    })
+  }
+}
