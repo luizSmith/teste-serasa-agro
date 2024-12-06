@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-@Entity('cultura', {
-    database: 'db_agricultura',
-})
+@Entity('cultura')
 export class Cultura extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

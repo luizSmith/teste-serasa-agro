@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-@Entity('fazenda', {
-    database: 'db_agricultura',
-})
+@Entity('fazenda')
 export class Fazenda extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
