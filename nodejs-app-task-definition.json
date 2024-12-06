@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:686255943849:task-definition/nodejs-app-task-definition:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:686255943849:task-definition/nodejs-app-task-definition:3",
     "containerDefinitions": [
         {
             "name": "nodeapp",
@@ -60,7 +60,7 @@
     "taskRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 3,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -109,7 +109,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-12-05T23:28:31.749Z",
+    "registeredAt": "2024-12-05T23:41:21.549Z",
     "registeredBy": "arn:aws:iam::686255943849:root",
     "tags": []
 }
