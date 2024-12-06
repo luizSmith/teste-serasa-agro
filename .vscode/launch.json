@@ -13,6 +13,13 @@
             "request": "launch",
             "command": "yarn build",
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run test",
+            "request": "launch",
+            "command": "yarn test",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
