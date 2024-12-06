@@ -1,5 +1,4 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:686255943849:task-definition/nodejs-app-task-definition:3",
     "containerDefinitions": [
         {
             "name": "nodeapp",
@@ -15,28 +14,6 @@
                 }
             ],
             "essential": true,
-            "environment": [
-                {
-                    "name": "DATABASE",
-                    "value": "db_agricultura"
-                },
-                {
-                    "name": "HOST_DB",
-                    "value": "db-agricultura.crskq4mm8veh.us-east-2.rds.amazonaws.com"
-                },
-                {
-                    "name": "PASSWORD_DB",
-                    "value": "j78gDiOCUMkR67gr7UTj"
-                },
-                {
-                    "name": "USERNAME_DB",
-                    "value": "postgres"
-                },
-                {
-                    "name": "VIA_CEP_API_URL",
-                    "value": "https://viacep.com.br/ws/"
-                }
-            ],
             "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
@@ -60,41 +37,7 @@
     "taskRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 3,
     "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "name": "ecs.capability.execution-role-awslogs"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
-        }
-    ],
     "placementConstraints": [],
     "requiresCompatibilities": [
         "FARGATE"
@@ -105,7 +48,5 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-12-05T23:41:21.549Z",
-    "registeredBy": "arn:aws:iam::686255943849:root",
     "tags": []
 }

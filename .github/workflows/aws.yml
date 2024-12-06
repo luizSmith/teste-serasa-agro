@@ -36,17 +36,46 @@ jobs:
           docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT    
 
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
+      - name: Render Task Definition
+        id: render-task
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: nodejs-app-task-definition.json 
-          container-name: nodeapp
-          image: ${{ steps.build-image.outputs.image }}    
+          task-definition: |
+            {
+              "family": "nodejs-app-task-definition",
+              "containerDefinitions": [
+                {
+                  "name": "nodeapp",
+                  "image": "${{ steps.build-image.outputs.image }}",
+                  "essential": true,
+                  "portMappings": [
+                    {
+                      "containerPort": 80,
+                      "hostPort": 80,
+                      "protocol": "tcp"
+                    }
+                  ],
+                  "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                      "awslogs-group": "/ecs/nodejs-app",
+                      "awslogs-region": "us-east-1",
+                      "awslogs-stream-prefix": "ecs"
+                    }
+                  }
+                }
+              ],
+              "requiresCompatibilities": ["FARGATE"],
+              "cpu": "1024",
+              "memory": "3072",
+              "networkMode": "awsvpc",
+              "executionRoleArn": "arn:aws:iam::686255943849:role/ecsTaskExecutionRole"
+            }
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          task-definition: ${{ steps.render-task.outputs.task-definition }}
           service: nodejs-app-service
           cluster: DevCluster
           wait-for-service-stability: true
+
