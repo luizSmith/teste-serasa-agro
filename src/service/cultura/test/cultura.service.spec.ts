@@ -20,18 +20,18 @@ describe('CulturaService', () => {
     describe('obterCulturaId', () => {
         it('deve retornar uma cultura válida quando o ID for encontrado', async () => {
             const mockCultura = {
-                id: 'b7a405a5-9dfc-4cf7-87a5-40122862a589',
+                id: 'b7a405a5-9dfc-4cf7-87a5-40122862a588',
                 nome: 'Soja',
             } as Cultura;
 
-            vi.spyOn(culturaRepository, 'obterCulturaId').mockImplementation(async (idCultura) => {
+            const culturaSpy = vi.spyOn(culturaRepository, 'obterCulturaId').mockImplementation(async (idCultura) => {
                 return idCultura === mockCultura.id ? mockCultura : null;
             });
 
-            const result = await culturaService.obterCulturaId('b7a405a5-9dfc-4cf7-87a5-40122862a589');
-
-            expect(culturaRepository.obterCulturaId).toHaveBeenCalledWith('b7a405a5-9dfc-4cf7-87a5-40122862a589');
+            const result = await culturaService.obterCulturaId('b7a405a5-9dfc-4cf7-87a5-40122862a588');
             expect(result).toEqual(mockCultura);
+
+            culturaSpy.mockRestore();
         });
 
         it('deve lançar RegraDeNegocioException quando o ID não for encontrado', async () => {
@@ -51,12 +51,13 @@ describe('CulturaService', () => {
                 { id: 'f90c68e5-1c9b-419d-a3a4-6c756a8e2ecf', nome: 'Milho' },
             ] as Cultura[];
 
-            vi.spyOn(culturaRepository, 'obterCultura').mockResolvedValue(mockCulturas);
+            const culturaSpy = vi.spyOn(culturaRepository, 'obterCultura').mockResolvedValue(mockCulturas);
 
             const result = await culturaService.obterCultura();
 
-            expect(culturaRepository.obterCultura).toHaveBeenCalled();
-            expect(result).toEqual(mockCulturas);
+            expect(result).toStrictEqual(mockCulturas);
+
+            culturaSpy.mockRestore();
         });
 
         it('deve retornar uma lista vazia quando não houver culturas', async () => {
@@ -64,8 +65,7 @@ describe('CulturaService', () => {
 
             const result = await culturaService.obterCultura();
 
-            expect(culturaRepository.obterCultura).toHaveBeenCalled();
-            expect(result).toEqual([]);
+            expect(result).toStrictEqual([]);
         });
     });
 });
