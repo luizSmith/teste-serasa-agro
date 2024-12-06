@@ -1,8 +1,6 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from 'typeorm';
 
-@Entity('estado', {
-    database: 'db_agricultura',
-})
+@Entity('estado')
 export class Estado extends BaseEntity {
     @PrimaryColumn({ length: 2 })
     uf: string;
