@@ -21,6 +21,6 @@ export class CulturaRepository {
         return await this._culturaRepository.createQueryBuilder('cultura')
             .select('cultura.id', "id")
             .addSelect('cultura.nome', "nome")
-            .getRawMany()
+            .getRawMany<Cultura>()
     }
 }
