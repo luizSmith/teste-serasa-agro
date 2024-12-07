@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { IsNotEmpty, ValidateIf } from 'class-validator';
+import { validaCNPJ } from 'src/infraestructure/pipe/validation/validaCNPJ.pipe';
+import { IsValidCPF } from 'src/infraestructure/pipe/validation/validaCPF.pipe';
 
 export class CriarProdutorRequest {
     @ApiProperty({
@@ -13,7 +15,7 @@ export class CriarProdutorRequest {
     })
     @ValidateIf((o) => !o.cpf)
     @IsNotEmpty({ message: 'CNPJ é obrigatório se o CPF não for preenchido' })
-    @IsString()
+    @validaCNPJ()
     cnpj: string;
 
     @ApiProperty({
@@ -21,6 +23,6 @@ export class CriarProdutorRequest {
     })
     @ValidateIf((o) => !o.cnpj)
     @IsNotEmpty({ message: 'CPF é obrigatório se o CNPJ não for preenchido' })
-    @IsString()
+    @IsValidCPF()
     cpf: string;
 }

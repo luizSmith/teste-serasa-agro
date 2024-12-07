@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-@Entity('produtor', {
-    database: 'db_agricultura',
-})
+@Entity('produtor')
 export class Produtor extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -15,6 +13,9 @@ export class Produtor extends BaseEntity {
 
     @Column({ type: 'varchar', length: 14, nullable: true, unique: true })
     cpf: string;
+
+    @Column()
+    ativo: boolean;
 
     @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     criado: Date;
