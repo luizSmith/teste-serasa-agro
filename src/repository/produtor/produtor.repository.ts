@@ -21,6 +21,7 @@ export class ProdutorRepository {
             .addSelect('produtor.cpf', 'cpf')
             .addSelect('produtor.ativo', 'ativo')
             .addSelect('produtor.criado', 'criado')
+            .where('produtor.ativo = true')
             .getRawMany<Produtor>();
 
         return produtor;
@@ -31,6 +32,7 @@ export class ProdutorRepository {
             .createQueryBuilder('produtor')
             .select()
             .where(`produtor.id = :idProdutor`, { idProdutor })
+            .andWhere('produtor.ativo = true')
             .getOne()
 
         return produtor;

@@ -12,7 +12,7 @@ import { CulturaControllerModule } from './controller/cultura/consulta.controlle
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: 'process-local.env',
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       useFactory() {

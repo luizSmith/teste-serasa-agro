@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('API Agricultura')
-    .setDescription('Apenas uma Poc')
+    .setDescription('Api de controle de vegetação')
     .setVersion('v1')
     .build();
   const document = SwaggerModule.createDocument(app, config);
