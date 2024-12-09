@@ -18,13 +18,12 @@ import { CulturaControllerModule } from './controller/cultura/consulta.controlle
       useFactory() {
         return {
           type: 'postgres',
-          port: Number(process.env.PORT_DB) || 5432,
-          host: process.env.HOST_DB,
-          username: process.env.USERNAME_DB,
-          password: process.env.PASSWORD_DB,
-          database: process.env.DATABASE,
+          url: `postgresql://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@${process.env.HOST_DB}:5432/${process.env.DATABASE}`,
           logging: process.env.LOGGING == 'true',
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          ssl: {
+            rejectUnauthorized: false
+          },
         };
       },
       async dataSourceFactory(options) {
