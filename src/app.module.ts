@@ -25,7 +25,6 @@ import { CulturaControllerModule } from './controller/cultura/consulta.controlle
           database: process.env.DATABASE,
           logging: process.env.LOGGING == 'true',
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          ssl: { rejectUnauthorized: false }
         };
       },
       async dataSourceFactory(options) {
