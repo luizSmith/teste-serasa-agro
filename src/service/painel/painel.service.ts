@@ -26,8 +26,10 @@ export class PainelService {
             if (toalFazendas.indexOf(dado.idFazenda) < 0) {
                 toalFazendas.push(dado.idFazenda);
                 totalHectares += Number(dado.quantidadeTotalFazenda);
+
                 estados[dado.ufCidade] = (estados[dado.ufCidade] || 0) + 1;
             }
+
             totalVegetacao += Number(dado.quantidadeVegetacao);
 
             if (dado.nomeCultura) {
@@ -43,9 +45,9 @@ export class PainelService {
         const response: ObterPainelProdutorResponse = {
             quantidadeFazendas: toalFazendas.length,
             quantidadeHectares: totalHectares,
-            porcentagemDoSoloComVegetacao: porcentagemDoSoloComVegetacao,
-            porcentagensFazendasPorUf: porcentagensFazendasPorUf,
-            porcentagemPorTipoCultura: porcentagemPorTipoCultura,
+            porcentagemDoSoloComVegetacao,
+            porcentagensFazendasPorUf,
+            porcentagemPorTipoCultura,
         }
 
         return response;
