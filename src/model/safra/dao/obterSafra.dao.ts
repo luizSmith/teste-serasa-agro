@@ -5,3 +5,11 @@ export class ObterSafraIdDAO {
     dtFim: Date;
     ativo: boolean;
 }
+
+export class ObterSafraAnoDAO {
+    idFazenda: string;
+    nomeFazenda: string;
+    nomeCultura: string;
+    ano: string;
+    quantidadePlantada: number
+}

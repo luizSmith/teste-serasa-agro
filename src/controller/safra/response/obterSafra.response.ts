@@ -29,3 +29,32 @@ export class ObterSafraResponse {
     })
     ativo: boolean;
 }
+
+export class ObterSafraAnoResponse {
+  
+    @ApiProperty({
+        description: 'ID da Fazenda',
+    })
+    idFazenda: string;
+
+    @ApiProperty({
+        description: 'Nome da Fazenda',
+    })
+    nomeFazenda: string;
+
+    @ApiProperty({
+        description: 'Nome da Cultura',
+    })
+    nomeCultura: string;
+
+    @ApiProperty({
+        description: 'Ano da Safra',
+    })
+    ano: string;
+
+    @ApiProperty({
+        description: 'Quantidade Plantada (em hectares ou outra unidade)',
+    })
+    quantidadePlantada: number;
+}
+

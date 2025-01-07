@@ -4,8 +4,9 @@ import { SafraRepository } from "src/repository/safra/safra.repository";
 import { CriarSafraRequest } from "src/controller/safra/request/criarSafra.request";
 import { CriarSafraResponse } from "src/controller/safra/response/criarSafra.response";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
-import { ObterSafraResponse } from "src/controller/safra/response/obterSafra.response";
+import { ObterSafraAnoResponse, ObterSafraResponse } from "src/controller/safra/response/obterSafra.response";
 import { FinalizarSafraRequest } from "src/controller/safra/request/desativarSafra.request";
+import { ObterSafraAnoRequest } from "src/controller/safra/request/obterSafra.request";
 
 @Injectable()
 export class SafraService {
@@ -49,5 +50,15 @@ export class SafraService {
         await this.obterSafraId(parametros.idSafra)
 
         await this._safraRepository.finalizarSafra(parametros.idSafra);
+    }
+
+    async obterSafraAno(parametros: ObterSafraAnoRequest): Promise<ObterSafraAnoResponse[]> {
+        const safra = await this._safraRepository.obterSafraAno(parametros)
+
+        if (safra.length == 0) {
+            throw new RegraDeNegocioException(['Safra não encontrada'], 404);
+        }
+
+        return safra;
     }
 }
