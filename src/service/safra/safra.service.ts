@@ -16,7 +16,7 @@ export class SafraService {
     async criarSafra(parametros: CriarSafraRequest): Promise<CriarSafraResponse> {
         await this._fazendaService.obterFazendaId(parametros.idFazenda);
 
-
+        await this._validarFazenda(parametros.idFazenda);
 
         const safra = await this._safraRepository.criarSafra({
             idFazenda: parametros.idFazenda,
@@ -34,5 +34,13 @@ export class SafraService {
         }
 
         return safra;
+    }
+
+    private async _validarFazenda(idFazenda: string): Promise<void> {
+        const fazenda = this._safraRepository.obterFazendaIdSafra(idFazenda);
+
+        if (fazenda) {
+            throw new RegraDeNegocioException(['Fazenda já possui uma safra ativa'], 400);
+        }
     }
 }
