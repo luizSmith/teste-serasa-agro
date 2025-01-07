@@ -28,6 +28,8 @@ services:
       - PASSWORD_DB=1234
       - DATABASE=db_agricultura
       - VIA_CEP_API_URL=https://viacep.com.br/ws/
+      - LOGGIN=true
+      - LOG_RULES='level=error'
     networks:
       - mynetwork
 

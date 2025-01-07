@@ -9,8 +9,6 @@ export class RegraDeNegocioException extends ErroPersonalizadoException {
 
         if (status >= 500) {
             this.logger.fatal(message, status);
-        } else {
-            this.logger.error(message, status);
         }
     }
 }
