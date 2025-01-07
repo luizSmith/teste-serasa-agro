@@ -10,6 +10,7 @@ import { PainelControllerModule } from './controller/painel/painel.controlle.mod
 import { CulturaControllerModule } from './controller/cultura/consulta.controller.module';
 import { LoggerModule } from 'nestjs-pino';
 import { CustomLogger } from './infraestructure/logger/custom.logger';
+import { SafraControllerModule } from './controller/safra/safra.controller.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CustomLogger } from './infraestructure/logger/custom.logger';
     }),
     ProdutorControllerModule,
     FazendaControllerModule,
+    SafraControllerModule,
     CulturaControllerModule,
     VegetacaoControllerModule,
     PainelControllerModule,

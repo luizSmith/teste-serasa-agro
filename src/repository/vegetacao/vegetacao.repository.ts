@@ -1,5 +1,5 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { FazendaCultura } from "./entity/fazendaCultura.entity";
+import { SafraCultura } from "./entity/safraCultura.entity";
 import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { Fazenda } from "../fazenda/entity/fazenda.entity";
@@ -10,8 +10,8 @@ import { CriarVegetacaoDTO } from "src/model/vegetacao/dto/criarVegetacao.dto";
 @Injectable()
 export class VegetacaoRepository {
     constructor(
-        @InjectRepository(FazendaCultura)
-        private readonly _vegetacaoRepository: Repository<FazendaCultura>
+        @InjectRepository(SafraCultura)
+        private readonly _vegetacaoRepository: Repository<SafraCultura>
     ) { }
 
     async obterVegetacaoProdutor(idProdutor: string): Promise<ObterVegetacaoDAO[]> {
@@ -27,7 +27,7 @@ export class VegetacaoRepository {
             .getRawMany<ObterVegetacaoDAO>()
     }
 
-    async criarVegetacao(parametros: CriarVegetacaoDTO): Promise<FazendaCultura> {
+    async criarVegetacao(parametros: CriarVegetacaoDTO): Promise<SafraCultura> {
         return this._vegetacaoRepository.create(parametros).save();
     }
 

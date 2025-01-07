@@ -42,12 +42,21 @@ CREATE TABLE fazenda (
     FOREIGN KEY (id_cidade) REFERENCES cidade(id) ON DELETE CASCADE
 );
 
-CREATE TABLE fazenda_cultura (
-    id_cultura UUID NOT NULL,
+CREATE TABLE safra (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     id_fazenda UUID NOT NULL,
+    dt_inicio TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    dt_fim TIMESTAMP,
+    ativo BOOLEAN,
+    FOREIGN KEY (id_fazenda) REFERENCES fazenda(id) ON DELETE CASCADE
+)
+
+CREATE TABLE safra_cultura (
+    id_safra UUID NOT NULL,
+    id_cultura UUID NOT NULL,
     qt_vegetacao DECIMAL(7, 2) NOT NULL,
     FOREIGN KEY (id_cultura) REFERENCES cultura(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_fazenda) REFERENCES fazenda(id) ON DELETE CASCADE
+    FOREIGN KEY (id_safra) REFERENCES safra(id) ON DELETE CASCADE
 );
 
 INSERT INTO cultura (nome)
