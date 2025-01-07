@@ -43,4 +43,19 @@ export class SafraRepository {
             .andWhere("fazenda.id = :idFazenda", { idFazenda })
             .getRawOne<ObterSafraIdDAO>();
     }
+
+    async finalizarSafra(idSafra: string): Promise<number> {
+        const produtor = await this._safraRepository.update(
+            {
+                id: idSafra
+            },
+            {
+                ativo: false,
+                dtFim: new Date()
+            }
+        );
+
+        return produtor.affected || 0;
+    }
+
 }

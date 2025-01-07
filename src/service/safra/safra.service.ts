@@ -5,6 +5,7 @@ import { CriarSafraRequest } from "src/controller/safra/request/criarSafra.reque
 import { CriarSafraResponse } from "src/controller/safra/response/criarSafra.response";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { ObterSafraResponse } from "src/controller/safra/response/obterSafra.response";
+import { FinalizarSafraRequest } from "src/controller/safra/request/desativarSafra.request";
 
 @Injectable()
 export class SafraService {
@@ -42,5 +43,11 @@ export class SafraService {
         if (fazenda) {
             throw new RegraDeNegocioException(['Fazenda já possui uma safra ativa'], 400);
         }
+    }
+
+    async finalizarSafra(parametros: FinalizarSafraRequest): Promise<void> {
+        await this.obterSafraId(parametros.idSafra)
+
+        await this._safraRepository.finalizarSafra(parametros.idSafra);
     }
 }
