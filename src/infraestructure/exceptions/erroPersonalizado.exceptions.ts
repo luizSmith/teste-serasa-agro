@@ -1,4 +1,4 @@
-import { HttpException } from '@nestjs/common';
+import { HttpException, Logger } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsArray, IsString } from 'class-validator';
 import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
@@ -33,7 +33,8 @@ export class ErroPersonalizadoException extends HttpException {
     constructor(
         message: Array<unknown> | string,
         statusCode: number,
-        error?: string
+        error?: string,
+        readonly logger = new Logger(ErroPersonalizadoException.name)
     ) {
         if (!statusCode) {
             statusCode = 502;
@@ -48,6 +49,13 @@ export class ErroPersonalizadoException extends HttpException {
             },
             statusCode
         );
+
+        if (statusCode >= 500) {
+            this.logger.fatal(message, statusCode);
+        } else {
+            this.logger.error(message, statusCode);
+        }
+
         this.statusCode = statusCode;
     }
 }

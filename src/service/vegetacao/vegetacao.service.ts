@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { ObterVegetacaoRequest } from "src/controller/vegetacao/request/obterVegetacao.request";
 import { VegetacaoRepository } from "src/repository/vegetacao/vegetacao.repository";
 import { ProdutorService } from "../produtor/produtor.service";
@@ -14,6 +14,8 @@ import { SafraService } from "../safra/safra.service";
 
 @Injectable()
 export class VegetacaoService {
+    readonly logger = new Logger(VegetacaoService.name)
+
     constructor(
         private _vegetacaoRepository: VegetacaoRepository,
         private _produtorService: ProdutorService,
@@ -49,7 +51,14 @@ export class VegetacaoService {
             quantidadeVegetacao: parametros.quantidadeVegetacao
         }
 
-        return await this._vegetacaoRepository.criarVegetacao(parametrosVegetacao)
+        try {
+            return await this._vegetacaoRepository.criarVegetacao(parametrosVegetacao)
+        } catch (error) {
+            this.logger.fatal(error)
+            throw new RegraDeNegocioException(
+                ["Erro ao finalizar vegetacao"], 400
+            );
+        }
     }
 
     private validarAreaLivre(parametros: ValidarCriaVegetacaoDTO): void {

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { FazendaRepository } from "src/repository/fazenda/fazenda.repository";
 import { ProdutorService } from "../produtor/produtor.service";
 import { ObterFazendasRequest } from "src/controller/fazenda/request/obterFazendas.request";
@@ -12,9 +12,12 @@ import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 import { ObterFazendaResponse } from "src/controller/fazenda/response/obterFazendas.response";
 import { CriarFazendaResponse } from "src/controller/fazenda/response/criarFazendas.response";
 import { Transactional } from "typeorm-transactional";
+import { ObterEnderecoPeloCepDAO } from "src/model/client/viaCep/dao/obterEnderecoPeloCep.dao";
 
 @Injectable()
 export class FazendaService {
+    readonly logger = new Logger(FazendaService.name)
+
     constructor(
         private _fazendaRepository: FazendaRepository,
         private _viaCepClient: ViaCepClient,
@@ -36,11 +39,7 @@ export class FazendaService {
             idProdutor: parametros.idProdutor
         })
 
-        const endereco = await this._viaCepClient.obterEnderecoPeloCep(parametros.cep)
-
-        if (!endereco) {
-            throw new RegraDeNegocioException(['Cep não é válido'], 400);
-        }
+        const endereco = await this.obterEnderecoFazenda(parametros.cep);
 
         const cidade = await this._tratarCidade({
             nome: endereco.localidade,
@@ -57,9 +56,18 @@ export class FazendaService {
             idCidade: cidade.id
         }
 
-        const fazenda = await this._fazendaRepository.criarFazenda(parametrosFazenda);
+        try {
+            const fazenda = await this._fazendaRepository.criarFazenda(parametrosFazenda);
+            return fazenda;
 
-        return fazenda;
+        } catch (error) {
+            this.logger.fatal(error)
+            throw new RegraDeNegocioException(
+                ["Erro ao criar fazenda"], 400
+            );
+        }
+
+
     }
 
     private async _tratarCidade(parametros: TratarCidadeDTO): Promise<Cidade> {
@@ -86,5 +94,15 @@ export class FazendaService {
         }
 
         return fazenda;
+    }
+
+    private async obterEnderecoFazenda(cep: string): Promise<ObterEnderecoPeloCepDAO> {
+        const endereco = await this._viaCepClient.obterEnderecoPeloCep(cep)
+
+        if (!endereco) {
+            throw new RegraDeNegocioException(['Cep não é válido'], 400);
+        }
+
+        return endereco;
     }
 }

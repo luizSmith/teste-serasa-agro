@@ -6,5 +6,11 @@ export class RegraDeNegocioException extends ErroPersonalizadoException {
         this.error = 'Business Exception';
         this.message = message;
         this.statusCode = status;
+
+        if (status >= 500) {
+            this.logger.fatal(message, status);
+        } else {
+            this.logger.error(message, status);
+        }
     }
 }

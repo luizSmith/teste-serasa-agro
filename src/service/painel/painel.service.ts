@@ -58,7 +58,7 @@ export class PainelService {
         const somaTotalRegistros = Object.values(parametros).reduce((soma, valor) => soma + valor, 0);
 
         const porcentagemPorTipo = Object.fromEntries(
-            Object.entries(parametros).map(([key, value]) => [key, Number(((value / somaTotalRegistros) * 100).toFixed(2))])
+            Object.entries(parametros).map(([key, value]) => [key, Number(Math.floor((value / somaTotalRegistros) * 100))])
         );
 
         return porcentagemPorTipo;
