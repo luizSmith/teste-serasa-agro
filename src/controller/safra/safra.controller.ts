@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { SafraService } from "src/service/safra/safra.service";
 import { CriarSafraRequest } from "./request/criarSafra.request";
 import { CriarSafraResponse } from "./response/criarSafra.response";
@@ -15,6 +15,10 @@ export class SafraController {
     constructor(private readonly _safraService: SafraService) { }
 
     @Post()
+    @ApiOperation({
+        summary: 'Criar uma nova safra',
+        description: 'Permite a criação de uma nova safra vinculada a fazenda, contando que não haja outra safra ativa no momento.',
+    })
     @ApiResponse({
         status: HttpStatus.CREATED,
         description: 'Sucesso',
@@ -38,6 +42,10 @@ export class SafraController {
 
 
     @Delete(':idSafra')
+    @ApiOperation({
+        summary: 'Finaliza safra',
+        description: 'Permite finalizar a safra para que seja possivel a criação de outra vinculada a fazenda',
+    })
     @HttpCode(204)
     @ApiResponse({
         status: HttpStatus.NO_CONTENT,
@@ -60,6 +68,10 @@ export class SafraController {
     }
 
     @Get(':idFazenda/:ano')
+    @ApiOperation({
+        summary: 'Obter safra da fazenda referente a um ano',
+        description: 'Retorna a lista das culturas referentes a safra desejada e a quantidade de hectares ocupados com a cultura, se houver mais de uma safra no mesmo ano elas serão somadas',
+    })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',

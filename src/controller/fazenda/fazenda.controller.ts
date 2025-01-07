@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Param, Post } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exceptions";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { FazendaService } from "src/service/fazenda/fazenda.service";
@@ -14,6 +14,10 @@ export class FazendaController {
     constructor(private readonly _fazendaService: FazendaService) { }
 
     @Get('produtor/:idProdutor')
+    @ApiOperation({
+        summary: 'Obter fazendas vinculadas a um produtor',
+        description: 'Retorna uma lista contendo os dados das fazendas vinculadas ao produtor. Este endpoint pode ser usado para consultar os dados das fazendas de forma mais rápida.',
+    })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',
@@ -37,6 +41,10 @@ export class FazendaController {
     }
 
     @Post()
+    @ApiOperation({
+        summary: 'Criar Fazenda',
+        description: 'Permite a criação de uma nova fazenda, vinculando-a ao produtor. Os detalhes do endereço serão obtidos a partir do CEP nacional do Brasil.',
+    })
     @ApiResponse({
         status: HttpStatus.CREATED,
         description: 'Sucesso',
