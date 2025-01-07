@@ -4,12 +4,14 @@ import { ProdutorServiceModule } from '../produtor/produtor.service.module';
 import { VegetacaoRepositoryModule } from 'src/repository/vegetacao/vegetacao.repository.module';
 import { FazendaServiceModule } from '../fazenda/fazenda.service.module';
 import { CulturaServiceModule } from '../cultura/cultura.service.module';
+import { SafraServiceModule } from '../safra/safra.service.module';
 
 @Module({
     imports: [
         VegetacaoRepositoryModule,
 
         ProdutorServiceModule,
+        SafraServiceModule,
         FazendaServiceModule,
         CulturaServiceModule,
     ],

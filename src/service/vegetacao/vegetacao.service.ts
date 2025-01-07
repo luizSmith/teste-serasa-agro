@@ -10,12 +10,14 @@ import { CriarVegetacaoDTO } from "src/model/vegetacao/dto/criarVegetacao.dto";
 import { CulturaService } from "../cultura/cultura.service";
 import { ValidarCriaVegetacaoDTO } from "src/model/vegetacao/dto/validarCriaVegetacao.dto";
 import { CriarVegetacaoResponse } from "src/controller/vegetacao/response/criarVegetacao.response";
+import { SafraService } from "../safra/safra.service";
 
 @Injectable()
 export class VegetacaoService {
     constructor(
         private _vegetacaoRepository: VegetacaoRepository,
         private _produtorService: ProdutorService,
+        private _safraService: SafraService,
         private _fazendaService: FazendaService,
         private _culturaService: CulturaService,
     ) { }
@@ -29,9 +31,11 @@ export class VegetacaoService {
     async criarVegetacao(parametros: CriarVegetacaoRequest): Promise<CriarVegetacaoResponse> {
         await this._culturaService.obterCulturaId(parametros.idCultura);
 
-        const fazenda = await this._fazendaService.obterFazendaId(parametros.idFazenda);
+        const safra = await this._safraService.obterSafraId(parametros.idSafra);
 
-        const vegetacao = await this._vegetacaoRepository.obterVegetacaoFazenda(parametros.idFazenda)
+        const fazenda = await this._fazendaService.obterFazendaId(safra.idFazenda);
+
+        const vegetacao = await this._vegetacaoRepository.obterVegetacaoFazenda(parametros.idSafra)
 
         this.validarAreaLivre({
             fazenda,
@@ -41,7 +45,7 @@ export class VegetacaoService {
 
         const parametrosVegetacao: CriarVegetacaoDTO = {
             idCultura: parametros.idCultura,
-            idFazenda: parametros.idFazenda,
+            idSafra: parametros.idSafra,
             quantidadeVegetacao: parametros.quantidadeVegetacao
         }
 

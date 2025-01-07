@@ -1,5 +1,5 @@
 export class CriarVegetacaoDTO {
     idCultura: string;
-    idFazenda: string;
+    idSafra: string;
     quantidadeVegetacao: number;
 }

@@ -15,6 +15,9 @@ export class CidadeRepository {
 
     async obterCidadeNomeUf(parametros: ObterCidadeDTO): Promise<Cidade | null> {
         return await this._cidadeRepository.createQueryBuilder('cidade')
+            .select('cidade.id', 'id')
+            .addSelect('cidade.nome', 'nome')
+            .addSelect('cidade.uf', 'uf')
             .where('cidade.nome = :nome', { nome: parametros.nome })
             .andWhere('cidade.uf = :uf', { uf: parametros.uf })
             .getRawOne()

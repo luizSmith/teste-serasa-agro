@@ -1,4 +1,4 @@
 export class CriarSafraDTO {
     idFazenda: string;
-    ativa: boolean;
+    ativo: boolean;
 }
