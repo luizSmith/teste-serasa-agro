@@ -37,7 +37,8 @@ export class PainelService {
             }
         }
 
-        const porcentagemDoSoloComVegetacao = Number(((totalVegetacao * 100) / totalHectares).toFixed(2));
+        const porcentagemDoSoloComVegetacao = (totalVegetacao * 100) / totalHectares
+        const porcentagemDoSoloComVegetacaoRetorno = Math.floor(porcentagemDoSoloComVegetacao);
 
         const porcentagensFazendasPorUf = await this._somaPorcentagemPorTipo(estados);
         const porcentagemPorTipoCultura = await this._somaPorcentagemPorTipo(culturas);
@@ -45,7 +46,7 @@ export class PainelService {
         const response: ObterPainelProdutorResponse = {
             quantidadeFazendas: toalFazendas.length,
             quantidadeHectares: totalHectares,
-            porcentagemDoSoloComVegetacao,
+            porcentagemDoSoloComVegetacao: porcentagemDoSoloComVegetacaoRetorno,
             porcentagensFazendasPorUf,
             porcentagemPorTipoCultura,
         }

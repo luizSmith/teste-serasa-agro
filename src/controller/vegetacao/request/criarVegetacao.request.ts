@@ -5,9 +5,9 @@ export class CriarVegetacaoRequest {
     @ApiProperty({
         description: 'ID do Fazenda',
     })
-    @IsUUID('4', { message: 'O idFazenda deve ser um UUID válido.' })
-    @IsNotEmpty({ message: 'O idFazenda é obrigatório.' })
-    idFazenda: string;
+    @IsUUID('4', { message: 'O idSafra deve ser um UUID válido.' })
+    @IsNotEmpty({ message: 'O idSafra é obrigatório.' })
+    idSafra: string;
 
     @ApiProperty({
         description: 'ID do Cultura',

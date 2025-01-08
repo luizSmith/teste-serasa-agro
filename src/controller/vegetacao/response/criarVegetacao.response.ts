@@ -2,9 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CriarVegetacaoResponse {
     @ApiProperty({
-        description: 'ID do Fazenda',
+        description: 'ID do Safra',
     })
-    idFazenda: string;
+    idSafra: string;
 
     @ApiProperty({
         description: 'ID do Cultura',

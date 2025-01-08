@@ -9,7 +9,7 @@ import { CriarVegetacaoRequest } from 'src/controller/vegetacao/request/criarVeg
 import { ObterVegetacaoResponse } from 'src/controller/vegetacao/response/obterVegetacao.response';
 import { Cultura } from 'src/repository/cultura/entity/cultura.entity';
 import { ObterFazendaResponse } from 'src/controller/fazenda/response/obterFazendas.response';
-import { FazendaCultura } from 'src/repository/vegetacao/entity/fazendaCultura.entity';
+import { SafraCultura } from 'src/repository/vegetacao/entity/safraCultura.entity';
 
 describe('VegetacaoService', () => {
     let vegetacaoService: VegetacaoService;
@@ -94,7 +94,7 @@ describe('VegetacaoService', () => {
                 idFazenda: parametros.idFazenda,
                 quantidadeVegetacao: parametros.quantidadeVegetacao,
                 id: 'c3a7b574-6a2d-4854-bf6e-4515b5da4501',
-            } as unknown as FazendaCultura;
+            } as unknown as SafraCultura;
 
             vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValue(mockFazenda);
             vi.spyOn(culturaService, 'obterCulturaId').mockResolvedValue(mockCultura);

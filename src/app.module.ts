@@ -8,6 +8,9 @@ import { DataSource } from 'typeorm';
 import { VegetacaoControllerModule } from './controller/vegetacao/vegetacao.controller.module';
 import { PainelControllerModule } from './controller/painel/painel.controlle.module';
 import { CulturaControllerModule } from './controller/cultura/consulta.controller.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CustomLogger } from './infraestructure/logger/custom.logger';
+import { SafraControllerModule } from './controller/safra/safra.controller.module';
 
 @Module({
   imports: [
@@ -37,14 +40,19 @@ import { CulturaControllerModule } from './controller/cultura/consulta.controlle
     }),
     ProdutorControllerModule,
     FazendaControllerModule,
+    SafraControllerModule,
     CulturaControllerModule,
     VegetacaoControllerModule,
     PainelControllerModule,
+
+    LoggerModule.forRoot()
   ],
+  providers: [CustomLogger],
+  exports: [CustomLogger]
 })
 export class AppModule {
   constructor() {
-    console.log("variaveis acesso", {
+    console.info("variaveis acesso", {
       type: 'postgres',
       port: Number(process.env.PORT_DB) || 5432,
       host: process.env.HOST_DB,
