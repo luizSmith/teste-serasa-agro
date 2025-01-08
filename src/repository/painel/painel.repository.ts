@@ -23,7 +23,7 @@ export class PainelRepository {
             .addSelect('safraCultura.qt_vegetacao', 'quantidadeVegetacao')
             .addSelect('cultura.id', 'idCultura')
             .addSelect('cultura.nome', 'nomeCultura')
-            .addSelect('fazenda.qt_total_hectares', 'quantidadeTotalFazenda')
+            .addSelect('fazenda.qt_total_hectares', 'areaTotalFazenda')
             .addSelect('cidade.id', 'idCidade')
             .addSelect('cidade.nome', 'nomeCidade')
             .addSelect('cidade.uf', 'ufCidade')

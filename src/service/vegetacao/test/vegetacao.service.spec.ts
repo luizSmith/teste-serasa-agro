@@ -10,6 +10,8 @@ import { ObterVegetacaoResponse } from 'src/controller/vegetacao/response/obterV
 import { Cultura } from 'src/repository/cultura/entity/cultura.entity';
 import { ObterFazendaResponse } from 'src/controller/fazenda/response/obterFazendas.response';
 import { SafraCultura } from 'src/repository/vegetacao/entity/safraCultura.entity';
+import { SafraService } from 'src/service/safra/safra.service';
+import { ObterSafraResponse } from 'src/controller/safra/response/obterSafra.response';
 
 describe('VegetacaoService', () => {
     let vegetacaoService: VegetacaoService;
@@ -17,6 +19,7 @@ describe('VegetacaoService', () => {
     let produtorService: ProdutorService;
     let fazendaService: FazendaService;
     let culturaService: CulturaService;
+    let safraService: SafraService;
 
     beforeEach(() => {
         vegetacaoRepository = {
@@ -37,9 +40,14 @@ describe('VegetacaoService', () => {
             obterCulturaId: vi.fn(),
         } as any;
 
+        safraService = {
+            obterSafraId: vi.fn()
+        } as any
+
         vegetacaoService = new VegetacaoService(
             vegetacaoRepository,
             produtorService,
+            safraService,
             fazendaService,
             culturaService
         );
@@ -68,13 +76,13 @@ describe('VegetacaoService', () => {
     describe('criarVegetacao', () => {
         it('deve criar uma nova vegetação para a fazenda', async () => {
             const parametros: CriarVegetacaoRequest = {
-                idFazenda: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
+                idSafra: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
                 idCultura: 'e53b61cc-b8d2-4f73-bb35-6fc8bb0b0296',
                 quantidadeVegetacao: 100.5,
             };
 
             const mockFazenda: ObterFazendaResponse = {
-                id: parametros.idFazenda,
+                id: 'd2c5d466-df4e-4c2a-9b77-7e82b9e5ae59',
                 nome: 'Fazenda Nova',
                 quantidadeTotalHectares: 500,
                 logradouro: 'Rua 1',
@@ -89,16 +97,25 @@ describe('VegetacaoService', () => {
                 nome: 'Soja',
             } as Cultura;
 
+            const mockSafra: ObterSafraResponse = {
+                id: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
+                idFazenda: 'd2c5d466-df4e-4c2a-9b77-7e82b9e5ae59',
+                dtInicio: new Date(),
+                dtFim: null,
+                ativo: true,
+            }
+
             const mockVegetacaoCriada = {
-                idCultura: parametros.idCultura,
-                idFazenda: parametros.idFazenda,
-                quantidadeVegetacao: parametros.quantidadeVegetacao,
                 id: 'c3a7b574-6a2d-4854-bf6e-4515b5da4501',
+                idCultura: parametros.idCultura,
+                idFazenda: mockFazenda.id,
+                quantidadeVegetacao: parametros.quantidadeVegetacao,
             } as unknown as SafraCultura;
 
             vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValue(mockFazenda);
             vi.spyOn(culturaService, 'obterCulturaId').mockResolvedValue(mockCultura);
             vi.spyOn(vegetacaoRepository, 'obterVegetacaoFazenda').mockResolvedValue(null);
+            vi.spyOn(safraService, 'obterSafraId').mockResolvedValue(mockSafra)
             vi.spyOn(vegetacaoRepository, 'criarVegetacao').mockResolvedValue(mockVegetacaoCriada);
 
             const result = await vegetacaoService.criarVegetacao(parametros);
@@ -108,13 +125,13 @@ describe('VegetacaoService', () => {
 
         it('deve lançar erro se a área de vegetação ultrapassar o tamanho total da fazenda', async () => {
             const parametros: CriarVegetacaoRequest = {
-                idFazenda: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
+                idSafra: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
                 idCultura: 'e53b61cc-b8d2-4f73-bb35-6fc8bb0b0296',
                 quantidadeVegetacao: 600,
             };
 
             const mockFazenda: ObterFazendaResponse = {
-                id: parametros.idFazenda,
+                id: 'd2c5d466-df4e-4c2a-9b77-7e82b9e5ae59',
                 nome: 'Fazenda Nova',
                 quantidadeTotalHectares: 500,
                 logradouro: 'Rua 1',
@@ -129,8 +146,17 @@ describe('VegetacaoService', () => {
                 nome: 'Soja',
             } as Cultura;
 
+            const mockSafra: ObterSafraResponse = {
+                id: 'd6f45e79-73c9-4dbd-839e-d60cd87b56ea',
+                idFazenda: 'd2c5d466-df4e-4c2a-9b77-7e82b9e5ae59',
+                dtInicio: new Date(),
+                dtFim: null,
+                ativo: true,
+            }
+
             vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValue(mockFazenda);
             vi.spyOn(culturaService, 'obterCulturaId').mockResolvedValue(mockCultura);
+            vi.spyOn(safraService, 'obterSafraId').mockResolvedValue(mockSafra)
             vi.spyOn(vegetacaoRepository, 'obterVegetacaoFazenda').mockResolvedValue(null);
 
             await expect(vegetacaoService.criarVegetacao(parametros)).rejects.toThrow(

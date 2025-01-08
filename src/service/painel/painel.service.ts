@@ -25,7 +25,7 @@ export class PainelService {
         for (const dado of dadosPainel) {
             if (toalFazendas.indexOf(dado.idFazenda) < 0) {
                 toalFazendas.push(dado.idFazenda);
-                totalHectares += Number(dado.quantidadeTotalFazenda);
+                totalHectares += Number(dado.areaTotalFazenda);
 
                 estados[dado.ufCidade] = (estados[dado.ufCidade] || 0) + 1;
             }
@@ -38,7 +38,6 @@ export class PainelService {
         }
 
         const porcentagemDoSoloComVegetacao = (totalVegetacao * 100) / totalHectares
-        const porcentagemDoSoloComVegetacaoRetorno = Math.floor(porcentagemDoSoloComVegetacao);
 
         const porcentagensFazendasPorUf = await this._somaPorcentagemPorTipo(estados);
         const porcentagemPorTipoCultura = await this._somaPorcentagemPorTipo(culturas);
@@ -46,7 +45,7 @@ export class PainelService {
         const response: ObterPainelProdutorResponse = {
             quantidadeFazendas: toalFazendas.length,
             quantidadeHectares: totalHectares,
-            porcentagemDoSoloComVegetacao: porcentagemDoSoloComVegetacaoRetorno,
+            porcentagemDoSoloComVegetacao: Number(porcentagemDoSoloComVegetacao.toFixed(3)),
             porcentagensFazendasPorUf,
             porcentagemPorTipoCultura,
         }
@@ -58,7 +57,7 @@ export class PainelService {
         const somaTotalRegistros = Object.values(parametros).reduce((soma, valor) => soma + valor, 0);
 
         const porcentagemPorTipo = Object.fromEntries(
-            Object.entries(parametros).map(([key, value]) => [key, Number(Math.floor((value / somaTotalRegistros) * 100))])
+            Object.entries(parametros).map(([key, value]) => [key, Number(((value / somaTotalRegistros) * 100).toFixed(2))])
         );
 
         return porcentagemPorTipo;

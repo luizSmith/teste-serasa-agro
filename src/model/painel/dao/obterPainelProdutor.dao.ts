@@ -4,7 +4,7 @@ export class ObterPainelProdutorDAO {
     quantidadeVegetacao: number;
     idCultura: string;
     nomeCultura: string;
-    quantidadeTotalFazenda: number;
+    areaTotalFazenda: number;
     idCidade: string;
     nomeCidade: string;
     ufCidade: string;
