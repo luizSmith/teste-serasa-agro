@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ObterProdutorResponse } from './response/obterProdutor.response';
 import { ObterProdutorIdRequest } from './request/obterProdutorId.request';
 import { ErroPersonalizadoException } from 'src/infraestructure/exceptions/erroPersonalizado.exceptions';
@@ -15,6 +15,10 @@ export class ProdutorController {
   constructor(private readonly _produtorService: ProdutorService) { }
 
   @Get()
+  @ApiOperation({
+    summary: 'Obter lista de produtores',
+    description: 'Retorna uma lista contendo os dados de todos os produtores ativo. Este endpoint pode ser usado para identificar todos os produtores ativos.',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Sucesso',
@@ -36,6 +40,10 @@ export class ProdutorController {
   }
 
   @Get(':idProdutor')
+  @ApiOperation({
+    summary: 'Obter produtor pelo ID',
+    description: 'Retorna os dados do produtor desejado cadastrados no sistema. Este endpoint pode ser usado para consultar os dados do produtor de forma mais rápida.',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Sucesso',
@@ -58,6 +66,10 @@ export class ProdutorController {
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Criar novo produtor',
+    description: 'Possibilita o registro de um novo produtor, seja ele uma pessoa física pelo CPF ou uma pessoa jurídica pelo CNPJ. Apenas um dos documentos é necessário.',
+  })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Sucesso',
@@ -78,6 +90,10 @@ export class ProdutorController {
   }
 
   @Delete(':idProdutor')
+  @ApiOperation({
+    summary: 'Desativa o registro do produtor',
+    description: 'Possibilita desativar um produtor, impedindo a visualização dos dados das suas fazendas no painel geral',
+  })
   @HttpCode(204)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
@@ -100,6 +116,10 @@ export class ProdutorController {
   }
 
   @Put(':idProdutor')
+  @ApiOperation({
+    summary: 'Atualizar dados do produtor',
+    description: 'Possibilita atualizar os dados de um produtor a partir do seu ID de registro',
+  })
   @HttpCode(204)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,

@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exceptions";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { PainelService } from "src/service/painel/painel.service";
@@ -11,6 +11,10 @@ export class PainelController {
     constructor(private readonly _painelService: PainelService) { }
 
     @Get()
+    @ApiOperation({
+        summary: 'Painel de dados das fazendas',
+        description: 'Retorna dados referentes a todas as fazendas com produtores ativos referente as safras ativas no momento. Este endpoint pode ser usado para montar gráficos relacionados ao status das culturas nas fazendas.',
+    })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',

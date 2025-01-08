@@ -45,7 +45,9 @@ import { SafraControllerModule } from './controller/safra/safra.controller.modul
     VegetacaoControllerModule,
     PainelControllerModule,
 
-    LoggerModule.forRoot()
+    LoggerModule.forRoot({ pinoHttp: {
+      level: 'trace'
+    }})
   ],
   providers: [CustomLogger],
   exports: [CustomLogger]

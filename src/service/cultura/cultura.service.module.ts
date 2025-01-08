@@ -4,7 +4,7 @@ import { CulturaRepositoryModule } from 'src/repository/cultura/cultura.reposito
 
 @Module({
     imports: [
-        CulturaRepositoryModule
+        CulturaRepositoryModule,
     ],
     providers: [CulturaService],
     exports: [CulturaService]

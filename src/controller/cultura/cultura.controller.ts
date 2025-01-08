@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exceptions";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { CulturaService } from "src/service/cultura/cultura.service";
@@ -11,6 +11,10 @@ export class CulturaController {
     constructor(private readonly _culturaService: CulturaService) { }
 
     @Get()
+    @ApiOperation({
+        summary: 'Obter todas as culturas disponiveis',
+        description: 'Retorna uma lista de todas as culturas cadastradas no sistema. Este endpoint pode ser usado para consultar as culturas e seus respectivos detalhes.',
+    })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',

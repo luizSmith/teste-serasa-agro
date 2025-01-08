@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { AtualizarProdutorRequest } from 'src/controller/produtor/request/atualizarProdutor.request';
 import { ObterProdutorIdRequest } from 'src/controller/produtor/request/obterProdutorId.request';
 import { CriarProdutorResponse } from 'src/controller/produtor/response/criarProdutor.response';
@@ -11,6 +11,8 @@ import { ProdutorRepository } from 'src/repository/produtor/produtor.repository'
 
 @Injectable()
 export class ProdutorService {
+  readonly logger = new Logger(ProdutorService.name)
+
   constructor(private _produtorRepository: ProdutorRepository) { }
 
   async obterProdutor(): Promise<ObterProdutorResponse[]> {
@@ -31,7 +33,15 @@ export class ProdutorService {
   async criarProdutor(parametros: CriarProdutorDTO): Promise<CriarProdutorResponse> {
     this._validarCpfECnpj(parametros.cnpj, parametros.cpf);
 
-    return await this._produtorRepository.criarProdutor(parametros);
+    try {
+      return await this._produtorRepository.criarProdutor(parametros);
+
+    } catch (error) {
+      this.logger.fatal(error)
+      throw new RegraDeNegocioException(
+        ["Erro ao criar produtor"], 400
+      );
+    }
   }
 
   private _validarCpfECnpj(cnpj: string, cpf: string): void {
@@ -49,7 +59,15 @@ export class ProdutorService {
       throw new RegraDeNegocioException(['Produtor não existe'], 404);
     }
 
-    await this._produtorRepository.deletarProdutorId(parametros.idProdutor);
+    try {
+      await this._produtorRepository.deletarProdutorId(parametros.idProdutor);
+
+    } catch (error) {
+      this.logger.fatal(error)
+      throw new RegraDeNegocioException(
+        ["Erro ao atualizar dados do produtor"], 400
+      );
+    }
   }
 
   async atualizarProdutor(idProdutor: string, parametros: AtualizarProdutorRequest): Promise<number> {
@@ -61,7 +79,16 @@ export class ProdutorService {
 
     this.verificarAtualizacaoCpfECnpj(produtor, parametros);
 
-    return await this._produtorRepository.atualizarProdutor(idProdutor, parametros);
+    try {
+
+      return await this._produtorRepository.atualizarProdutor(idProdutor, parametros);
+
+    } catch (error) {
+      this.logger.fatal(error)
+      throw new RegraDeNegocioException(
+        ["Erro ao atualizar dados do produtor"], 400
+      );
+    }
   }
 
   private verificarAtualizacaoCpfECnpj(produtor: Produtor, parametros: AtualizarProdutorDTO): void {

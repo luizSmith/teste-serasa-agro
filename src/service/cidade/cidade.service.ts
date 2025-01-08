@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { CriarCidadeDTO } from "src/model/cidade/dto/criarCidade.dto";
 import { ObterCidadeDTO } from "src/model/cidade/dto/obterCidade.dto";
@@ -7,11 +7,14 @@ import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 
 @Injectable()
 export class CidadeService {
+    readonly logger = new Logger(CidadeService.name)
+
     constructor(
         private _cidadeRepository: CidadeRepository,
     ) { }
 
     async obterCidadeNomeUf(parametros: ObterCidadeDTO): Promise<Cidade> {
+        this.logger.log("Inicio")
         try {
             return await this._cidadeRepository.obterCidadeNomeUf(parametros);
 

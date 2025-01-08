@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Param, Post } from "@nestjs/common";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exceptions";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exceptions";
 import { VegetacaoService } from "src/service/vegetacao/vegetacao.service";
@@ -14,6 +14,10 @@ export class VegetacaoController {
     constructor(private readonly _vegetacaoService: VegetacaoService) { }
 
     @Get('produtor/:idProdutor')
+    @ApiOperation({
+        summary: 'Obter quantidade de vegetação por fazenda',
+        description: 'Retorna uma lista das fazendas vinculadas ao produtor e o tamanho da area vegetada. Este endpoint pode ser utilizado para monitorar quantidade de area vegetada em cada fazenda',
+    })
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',
@@ -37,6 +41,10 @@ export class VegetacaoController {
     }
 
     @Post()
+    @ApiOperation({
+        summary: 'Criar vegetação',
+        description: 'Permite adicionar vegetação a uma fazenda contanto que ela tenha area livre para isso.',
+    })
     @ApiResponse({
         status: HttpStatus.CREATED,
         description: 'Sucesso',
