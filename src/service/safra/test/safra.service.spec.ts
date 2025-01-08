@@ -81,9 +81,17 @@ describe('SafraService', () => {
                 idCidade: '42cbf6b7-9f1a-4c8d-9205-f7e76b8c0f60',
             };
 
+            const mockSafraResponse = {
+                id: '3a1f5c6b-9e8e-4203-8c09-8bbdb6f170e5',
+                idFazenda: parametros.idFazenda,
+                dtInicio: new Date(),
+                dtFim: null,
+                ativo: true,
+            } as Safra;
+
             vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValueOnce(mockFazenda);
 
-            vi.spyOn(safraRepository, 'obterFazendaIdFazenda').mockResolvedValueOnce(null);
+            vi.spyOn(safraRepository, 'obterFazendaIdFazenda').mockResolvedValueOnce(mockSafraResponse);
 
             await expect(safraService.criarSafra(parametros)).rejects.toThrow(
                 RegraDeNegocioException
