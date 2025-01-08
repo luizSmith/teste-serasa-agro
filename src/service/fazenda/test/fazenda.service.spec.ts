@@ -10,9 +10,8 @@ import { ObterEnderecoPeloCepDAO } from 'src/model/client/viaCep/dao/obterEndere
 import { Cidade } from 'src/repository/cidade/entity/cidade.entity';
 import { Fazenda } from 'src/repository/fazenda/entity/fazenda.entity';
 
-// Mockando o @Transactional para que não execute transações reais
 vi.mock('typeorm-transactional', () => ({
-    Transactional: () => () => ({}),  // Não faz nada, ou seja, ignora transações
+    Transactional: () => () => ({}),
 }));
 
 describe('FazendaService', () => {
