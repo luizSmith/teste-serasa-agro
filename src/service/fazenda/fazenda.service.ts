@@ -66,8 +66,6 @@ export class FazendaService {
                 ["Erro ao criar fazenda"], 400
             );
         }
-
-
     }
 
     private async _tratarCidade(parametros: TratarCidadeDTO): Promise<Cidade> {

@@ -33,7 +33,7 @@ export class SafraRepository {
             .getRawOne<ObterSafraIdDAO>();
     }
 
-    async obterFazendaIdSafra(idFazenda: string): Promise<ObterSafraIdDAO> {
+    async obterFazendaIdFazenda(idFazenda: string): Promise<ObterSafraIdDAO> {
         return await this._safraRepository
             .createQueryBuilder('safra')
             .select('safra.id', 'id')

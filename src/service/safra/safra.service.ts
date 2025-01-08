@@ -38,8 +38,8 @@ export class SafraService {
         }
     }
 
-    async obterSafraId(idFazenda: string): Promise<ObterSafraResponse> {
-        const safra = await this._safraRepository.obterSafraId(idFazenda)
+    async obterSafraId(idSafra: string): Promise<ObterSafraResponse> {
+        const safra = await this._safraRepository.obterSafraId(idSafra)
 
         if (!safra) {
             throw new RegraDeNegocioException(['idSafra não é valido'], 400);
@@ -49,7 +49,7 @@ export class SafraService {
     }
 
     private async _validarFazenda(idFazenda: string): Promise<void> {
-        const fazenda = this._safraRepository.obterFazendaIdSafra(idFazenda);
+        const fazenda = this._safraRepository.obterFazendaIdFazenda(idFazenda);
 
         if (fazenda) {
             throw new RegraDeNegocioException(['Fazenda já possui uma safra ativa'], 400);

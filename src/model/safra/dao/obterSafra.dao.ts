@@ -2,7 +2,7 @@ export class ObterSafraIdDAO {
     id: string;
     idFazenda: string;
     dtInicio: Date;
-    dtFim: Date;
+    dtFim?: Date;
     ativo: boolean;
 }
 
