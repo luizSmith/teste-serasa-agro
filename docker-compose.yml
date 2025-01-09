@@ -30,6 +30,7 @@ services:
       - VIA_CEP_API_URL=https://viacep.com.br/ws/
       - LOGGIN=true
       - LOG_RULES='level=error'
+      - SSL='false'
     networks:
       - mynetwork
 
