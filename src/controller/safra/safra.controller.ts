@@ -96,8 +96,8 @@ export class SafraController {
 
     @Get(':idFazenda/')
     @ApiOperation({
-        summary: 'Obter safra da fazenda referente a um ano',
-        description: 'Retorna a lista das culturas referentes a safra desejada e a quantidade de hectares ocupados com a cultura, se houver mais de uma safra no mesmo ano elas serão somadas',
+        summary: 'Obter safra da fazenda ',
+        description: 'Retorna dados da safra ativa para aquela fazenda. Se não houver safra ativa ele retornará um erro',
     })
     @ApiResponse({
         status: HttpStatus.OK,
