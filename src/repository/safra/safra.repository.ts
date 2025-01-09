@@ -33,7 +33,7 @@ export class SafraRepository {
             .getRawOne<ObterSafraIdDAO>();
     }
 
-    async obterFazendaIdFazenda(idFazenda: string): Promise<ObterSafraIdDAO> {
+    async obterSafraFazendaId(idFazenda: string): Promise<ObterSafraIdDAO> {
         return await this._safraRepository
             .createQueryBuilder('safra')
             .select('safra.id', 'id')
@@ -62,7 +62,7 @@ export class SafraRepository {
     }
 
     async obterSafraAno(parametros: ObterSafraAnoRequest): Promise<ObterSafraAnoDAO[]> {
-        return await this._safraRepository
+        const query = await this._safraRepository
             .createQueryBuilder('safra')
             .select('fazenda.id', 'idFazenda')
             .addSelect('fazenda.nome', 'nomeFazenda')
@@ -77,7 +77,8 @@ export class SafraRepository {
             .groupBy('fazenda.id')
             .addGroupBy('ano')
             .addGroupBy('cultura.nome')
-            .getRawMany<ObterSafraAnoDAO>();
-    }
 
+            console.log(query.getSql());
+            return query.getRawMany<ObterSafraAnoDAO>();
+    }
 }
