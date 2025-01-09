@@ -65,7 +65,6 @@ export class AppModule {
       database: process.env.DATABASE,
       logging: process.env.LOGGING == 'true',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      ssl: { rejectUnauthorized: false }
     })
   }
 }
