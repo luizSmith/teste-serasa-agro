@@ -16,3 +16,12 @@ export class ObterSafraAnoRequest {
     ano: string;
 }
 
+export class ObterSafraFazendaIdRequest {
+    @ApiProperty({
+        description: 'Id da Fazenda associada à Safra',
+    })
+    @IsNotEmpty()
+    @IsString()
+    idFazenda: string;
+}
+

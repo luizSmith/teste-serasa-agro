@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-
 export class ObterSafraResponse {
-
     @ApiProperty({
         description: 'Id da Safra',
     })
@@ -57,4 +55,3 @@ export class ObterSafraAnoResponse {
     })
     quantidadePlantada: number;
 }
-

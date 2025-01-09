@@ -21,7 +21,7 @@ describe('SafraService', () => {
             obterSafraId: vi.fn(),
             finalizarSafra: vi.fn(),
             obterSafraAno: vi.fn(),
-            obterFazendaIdFazenda: vi.fn(),
+            obterSafraFazendaId: vi.fn(),
         } as any;
 
         fazendaService = {
@@ -57,7 +57,6 @@ describe('SafraService', () => {
             } as Safra;
 
             vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValueOnce(mockFazenda);
-
             vi.spyOn(safraRepository, 'criarSafra').mockResolvedValueOnce(mockSafraResponse);
 
             const result = await safraService.criarSafra(parametros);
@@ -65,7 +64,7 @@ describe('SafraService', () => {
             expect(result).toEqual(mockSafraResponse);
         });
 
-        it('deve lançar um erro se a fazenda já tiver uma safra ativa', async () => {
+        it('deve lançar erro se a fazenda já tiver uma safra ativa', async () => {
             const parametros: CriarSafraRequest = {
                 idFazenda: 'a6f54f77-df4f-474b-8f55-b3505391c0f4',
             };
@@ -81,9 +80,16 @@ describe('SafraService', () => {
                 idCidade: '42cbf6b7-9f1a-4c8d-9205-f7e76b8c0f60',
             };
 
-            vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValueOnce(mockFazenda);
+            const mockSafraResponse = {
+                id: '3a1f5c6b-9e8e-4203-8c09-8bbdb6f170e5',
+                idFazenda: parametros.idFazenda,
+                dtInicio: new Date(),
+                dtFim: null,
+                ativo: true,
+            } as Safra;
 
-            vi.spyOn(safraRepository, 'obterFazendaIdFazenda').mockResolvedValueOnce(null);
+            vi.spyOn(fazendaService, 'obterFazendaId').mockResolvedValueOnce(mockFazenda);
+            vi.spyOn(safraRepository, 'obterSafraFazendaId').mockResolvedValueOnce(mockSafraResponse);
 
             await expect(safraService.criarSafra(parametros)).rejects.toThrow(
                 RegraDeNegocioException
@@ -132,10 +138,9 @@ describe('SafraService', () => {
                 ativo: true,
                 dtInicio: new Date(),
                 dtFim: null,
-            }
+            };
 
             vi.spyOn(safraService, 'obterSafraId').mockResolvedValueOnce(safraMock);
-
             vi.spyOn(safraRepository, 'finalizarSafra').mockResolvedValueOnce(undefined);
 
             await safraService.finalizarSafra(parametros);
@@ -143,12 +148,12 @@ describe('SafraService', () => {
             expect(safraRepository.finalizarSafra).toHaveBeenCalledWith(parametros.idSafra);
         });
 
-        it('deve lançar erro ao finalizar uma safra inexistente', async () => {
+        it('deve lançar erro ao tentar finalizar uma safra inexistente', async () => {
             const parametros: FinalizarSafraRequest = {
                 idSafra: '3a1f5c6b-9e8e-4203-8c09-8bbdb6f170e5',
             };
 
-            vi.spyOn(safraRepository, 'obterSafraId').mockResolvedValueOnce(undefined);
+            vi.spyOn(safraRepository, 'obterSafraId').mockResolvedValueOnce(null);
 
             await expect(safraService.finalizarSafra(parametros)).rejects.toThrow(
                 RegraDeNegocioException
@@ -169,11 +174,9 @@ describe('SafraService', () => {
                     nomeFazenda: 'Fazenda A',
                     nomeCultura: 'Soja',
                     ano: '2023',
-                    quantidadePlantada: 7000
+                    quantidadePlantada: 7000,
                 },
             ];
-
-
 
             vi.spyOn(safraRepository, 'obterSafraAno').mockResolvedValueOnce(mockSafraAnoResponse);
 
@@ -195,4 +198,35 @@ describe('SafraService', () => {
             );
         });
     });
+
+    describe('obterSafraFazendaId', () => {
+        it('deve retornar a safra ativa da fazenda', async () => {
+            const idFazenda = 'a6f54f77-df4f-474b-8f55-b3505391c0f4';
+            const mockSafra: ObterSafraResponse = {
+                id: '3a1f5c6b-9e8e-4203-8c09-8bbdb6f170e5',
+                idFazenda: idFazenda,
+                ativo: true,
+                dtInicio: new Date(),
+                dtFim: null,
+            };
+
+            vi.spyOn(safraRepository, 'obterSafraFazendaId').mockResolvedValueOnce(mockSafra);
+
+            const result = await safraService.obterSafraFazendaId(idFazenda);
+
+            expect(result).toEqual(mockSafra);
+            expect(safraRepository.obterSafraFazendaId).toHaveBeenCalledWith(idFazenda);
+        });
+
+        it('deve lançar erro se a fazenda não contiver safra ativa', async () => {
+            const idFazenda = 'a6f54f77-df4f-474b-8f55-b3505391c0f4';
+
+            vi.spyOn(safraRepository, 'obterSafraFazendaId').mockResolvedValueOnce(null);
+
+            await expect(safraService.obterSafraFazendaId(idFazenda)).rejects.toThrow(
+                RegraDeNegocioException
+            );
+        });
+    });
+
 });

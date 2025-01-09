@@ -49,7 +49,7 @@ export class SafraService {
     }
 
     private async _validarFazenda(idFazenda: string): Promise<void> {
-        const fazenda = this._safraRepository.obterFazendaIdFazenda(idFazenda);
+        const fazenda = await this._safraRepository.obterSafraFazendaId(idFazenda);
 
         if (fazenda) {
             throw new RegraDeNegocioException(['Fazenda já possui uma safra ativa'], 400);
@@ -74,7 +74,17 @@ export class SafraService {
         const safra = await this._safraRepository.obterSafraAno(parametros)
 
         if (safra.length == 0) {
-            throw new RegraDeNegocioException(['Safra não encontrada'], 404);
+            throw new RegraDeNegocioException(['Cultivo da safra deste ano não foi encontrado'], 404);
+        }
+
+        return safra;
+    }
+
+    async obterSafraFazendaId(idFazenda: string): Promise<ObterSafraResponse> {
+        const safra = await this._safraRepository.obterSafraFazendaId(idFazenda);
+
+        if (!safra) {
+            throw new RegraDeNegocioException(['Esta fazenda não contem safra ativa'], 400);
         }
 
         return safra;
